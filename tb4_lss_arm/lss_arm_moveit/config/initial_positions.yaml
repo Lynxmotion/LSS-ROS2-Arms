@@ -1,0 +1,9 @@
+# Default initial positions for the lss arm's ros2_control fake system
+initial_positions:
+  virtual_joint: 0.0
+  joint0: 0.0
+  joint1: 0.0
+  joint2: 0.0
+  joint3: 0.0
+  gripper_r: 0.0
+  gripper_l: 0.0
