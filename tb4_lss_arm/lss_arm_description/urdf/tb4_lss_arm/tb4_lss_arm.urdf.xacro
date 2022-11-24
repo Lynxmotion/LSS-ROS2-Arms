@@ -17,7 +17,7 @@
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="package://lss_arm_description/meshes/link_0.STL" />
+                <mesh filename="package://lss_arm_description/meshes/visual/link_0.STL" />
             </geometry>
             <material name="">
                 <color rgba="0.3 0.3 0.3 1" />
@@ -26,7 +26,7 @@
         <collision>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="package://lss_arm_description/meshes/link_0.STL" />
+                <mesh filename="package://lss_arm_description/meshes/collision/link_0.STL" />
             </geometry>
         </collision>
     </link>
@@ -46,7 +46,7 @@
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="package://lss_arm_description/meshes/link_1.STL" />
+                <mesh filename="package://lss_arm_description/meshes/visual/link_1.STL" />
             </geometry>
             <material name="">
                 <color rgba="0.3 0.3 0.3 1" />
@@ -55,7 +55,7 @@
         <collision>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="package://lss_arm_description/meshes/link_1.STL" />
+                <mesh filename="package://lss_arm_description/meshes/collision/link_1.STL" />
             </geometry>
         </collision>
     </link>
@@ -77,7 +77,7 @@
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="package://lss_arm_description/meshes/link_2.STL" />
+                <mesh filename="package://lss_arm_description/meshes/visual/link_2.STL" />
             </geometry>
             <material name="">
                 <color rgba="0.3 0.3 0.3 1" />
@@ -86,7 +86,7 @@
         <collision>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="package://lss_arm_description/meshes/link_2.STL" />
+                <mesh filename="package://lss_arm_description/meshes/collision/link_2.STL" />
             </geometry>
         </collision>
     </link>
@@ -108,7 +108,7 @@
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="package://lss_arm_description/meshes/link_3.STL" />
+                <mesh filename="package://lss_arm_description/meshes/visual/link_3.STL" />
             </geometry>
             <material name="">
                 <color rgba="0.3 0.3 0.3 1" />
@@ -117,7 +117,7 @@
         <collision>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="package://lss_arm_description/meshes/link_3.STL" />
+                <mesh filename="package://lss_arm_description/meshes/collision/link_3.STL" />
             </geometry>
         </collision>
     </link>
@@ -139,7 +139,7 @@
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="package://lss_arm_description/meshes/link_4.STL" />
+                <mesh filename="package://lss_arm_description/meshes/visual/link_4.STL" />
             </geometry>
             <material name="">
                 <color rgba="0.3 0.3 0.3 1" />
@@ -148,7 +148,7 @@
         <collision>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="package://lss_arm_description/meshes/link_4.STL" />
+                <mesh filename="package://lss_arm_description/meshes/collision/link_4.STL" />
             </geometry>
         </collision>
     </link>
@@ -170,7 +170,7 @@
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="package://lss_arm_description/meshes/end_effector_r.STL" />
+                <mesh filename="package://lss_arm_description/meshes/visual/end_effector_r.STL" />
             </geometry>
             <material name="">
                 <color rgba="0.3 0.3 0.3 1" />
@@ -179,7 +179,7 @@
         <collision>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="package://lss_arm_description/meshes/end_effector_r.STL" />
+                <mesh filename="package://lss_arm_description/meshes/collision/end_effector_r.STL" />
             </geometry>
         </collision>
     </link>
@@ -199,7 +199,7 @@
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="package://lss_arm_description/meshes/end_effector_l.STL" />
+                <mesh filename="package://lss_arm_description/meshes/visual/end_effector_l.STL" />
             </geometry>
             <material name="">
                 <color rgba="0.3 0.3 0.3 1" />
@@ -208,7 +208,7 @@
         <collision>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="package://lss_arm_description/meshes/end_effector_l.STL" />
+                <mesh filename="package://lss_arm_description/meshes/collision/end_effector_l.STL" />
             </geometry>
         </collision>
     </link>
