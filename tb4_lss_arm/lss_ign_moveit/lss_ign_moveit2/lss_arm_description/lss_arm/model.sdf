@@ -1,0 +1,517 @@
+<sdf version='1.8'>
+  <model name='lss_arm'>
+    <joint name='lss_arm_joint_base' type='fixed'>
+      <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      <parent>world</parent>
+      <child>lss_arm_link_0</child>
+    </joint>
+    <link name='lss_arm_link_0'>
+      <pose relative_to='lss_arm_joint_base'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0 0.007726 0.025816 0 -0 0</pose>
+        <mass>0.074523598908293603</mass>
+        <inertia>
+          <ixx>3.0692614233218497e-05</ixx>
+          <ixy>9.1922793887561806e-11</ixy>
+          <ixz>2.6096016311449501e-12</ixz>
+          <iyy>2.3793817537334899e-05</iyy>
+          <iyz>2.1441967407570099e-07</iyz>
+          <izz>4.3740298972665199e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='lss_arm_link_0_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/collision/link_0.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>247.75</mu>
+              <mu2>247.75</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='lss_arm_link_0_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/visual/link_0.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.375 0.375 0.375 1</diffuse>
+          <ambient>0.375 0.375 0.375 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='lss_arm_joint0' type='revolute'>
+      <pose relative_to='lss_arm_link_0'>0 0 0.0427 1.5708 -0 0</pose>
+      <parent>lss_arm_link_0</parent>
+      <child>lss_arm_link_1</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.1415926535897931</lower>
+          <upper>3.1415926535897931</upper>
+          <effort>6.5687857000000003</effort>
+          <velocity>6.2830000000000004</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <friction>3.48</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='lss_arm_link_1'>
+      <pose relative_to='lss_arm_joint0'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>1e-06 0.034626 0.000107 0 -0 0</pose>
+        <mass>0.065878427080999599</mass>
+        <inertia>
+          <ixx>2.2123427840754901e-05</ixx>
+          <ixy>9.2435937826081296e-11</ixy>
+          <ixz>-3.0028304734588998e-12</ixz>
+          <iyy>2.30585181059312e-05</iyy>
+          <iyz>-2.1952646831221799e-07</iyz>
+          <izz>1.8999404362413699e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='lss_arm_link_1_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/collision/link_1.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>247.75</mu>
+              <mu2>247.75</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='lss_arm_link_1_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/visual/link_1.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.375 0.375 0.375 1</diffuse>
+          <ambient>0.375 0.375 0.375 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='lss_arm_joint1' type='revolute'>
+      <pose relative_to='lss_arm_link_1'>0 0.0588 0 0 0 -1.36211</pose>
+      <parent>lss_arm_link_1</parent>
+      <child>lss_arm_link_2</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1.570796326794897</lower>
+          <upper>1.570796326794897</upper>
+          <effort>6.5687857000000003</effort>
+          <velocity>6.2830000000000004</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <friction>3.48</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='lss_arm_link_2'>
+      <pose relative_to='lss_arm_joint1'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>-0.111779 0.03361 0.000181 0 -0 0</pose>
+        <mass>0.0616037662847113</mass>
+        <inertia>
+          <ixx>1.6685230883793299e-05</ixx>
+          <ixy>-1.03329219740433e-06</ixy>
+          <ixz>-4.4331065475487397e-08</ixz>
+          <iyy>1.2024262230403299e-05</iyy>
+          <iyz>-2.1500779521909901e-07</iyz>
+          <izz>1.41673473261847e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='lss_arm_link_2_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/collision/link_2.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>247.75</mu>
+              <mu2>247.75</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='lss_arm_link_2_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/visual/link_2.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.375 0.375 0.375 1</diffuse>
+          <ambient>0.375 0.375 0.375 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='lss_arm_joint2' type='revolute'>
+      <pose relative_to='lss_arm_link_2'>-0.129548 0.053398 0 0 -0 1.02985</pose>
+      <parent>lss_arm_link_2</parent>
+      <child>lss_arm_link_3</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1.570796326794897</lower>
+          <upper>1.570796326794897</upper>
+          <effort>6.5687857000000003</effort>
+          <velocity>6.2830000000000004</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <friction>3.48</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='lss_arm_link_3'>
+      <pose relative_to='lss_arm_joint2'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.119393 0.041036 0.000154 0 -0 0</pose>
+        <mass>0.062951277283338006</mass>
+        <inertia>
+          <ixx>1.11886789972704e-05</ixx>
+          <ixy>-2.66768170363405e-06</ixy>
+          <ixz>-2.0160948164932901e-07</ixz>
+          <iyy>1.7999146019816699e-05</iyy>
+          <iyz>-6.9561531958933997e-08</iyz>
+          <izz>1.4615827612435901e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='lss_arm_link_3_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/collision/link_3.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>247.75</mu>
+              <mu2>247.75</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='lss_arm_link_3_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/visual/link_3.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.375 0.375 0.375 1</diffuse>
+          <ambient>0.375 0.375 0.375 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='lss_arm_joint3' type='revolute'>
+      <pose relative_to='lss_arm_link_3'>0.154274 0.053233 0 0 -0 0.33226</pose>
+      <parent>lss_arm_link_3</parent>
+      <child>lss_arm_link_4</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1.570796326794897</lower>
+          <upper>1.570796326794897</upper>
+          <effort>6.5687857000000003</effort>
+          <velocity>6.2830000000000004</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <friction>3.48</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='lss_arm_link_4'>
+      <pose relative_to='lss_arm_joint3'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.046335 -0.000217 0.000342 0 -0 0</pose>
+        <mass>0.055291731750126097</mass>
+        <inertia>
+          <ixx>1.8113575416174701e-05</ixx>
+          <ixy>3.0049831947197e-12</ixy>
+          <ixz>9.2048218516243899e-11</ixz>
+          <iyy>1.48586070714427e-05</iyy>
+          <iyz>2.14450571018836e-07</iyz>
+          <izz>9.0473852021356797e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='lss_arm_link_4_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/collision/link_4.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>247.75</mu>
+              <mu2>247.75</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='lss_arm_link_4_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/visual/link_4.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.375 0.375 0.375 1</diffuse>
+          <ambient>0.375 0.375 0.375 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='lss_arm_gripper_l' type='revolute'>
+      <pose relative_to='lss_arm_link_4'>0.0508 -0.002739 0.013 0 -0 0</pose>
+      <parent>lss_arm_link_4</parent>
+      <child>lss_arm_end_effector_l</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.570796326794897</lower>
+          <upper>0</upper>
+          <effort>6.5687857000000003</effort>
+          <velocity>6.2830000000000004</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <friction>0.40000000000000002</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='lss_arm_end_effector_l'>
+      <pose relative_to='lss_arm_gripper_l'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.030955 -0.014067 -0.001319 0 -0 0</pose>
+        <mass>0.016543727818593201</mass>
+        <inertia>
+          <ixx>6.3784084369591304e-07</ixx>
+          <ixy>-1.6746284220521799e-12</ixy>
+          <ixz>4.4162180833011097e-07</ixz>
+          <iyy>3.0024617192163799e-06</iyy>
+          <iyz>3.9975757647572798e-12</iyz>
+          <izz>2.5717551227832701e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='lss_arm_end_effector_l_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/collision/end_effector_l.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>247.75</mu>
+              <mu2>247.75</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='lss_arm_end_effector_l_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/visual/end_effector_l.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.375 0.375 0.375 1</diffuse>
+          <ambient>0.375 0.375 0.375 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='lss_arm_gripper_r' type='revolute'>
+      <pose relative_to='lss_arm_link_4'>0.0508 -0.002739 -0.0124 0 -0 0</pose>
+      <parent>lss_arm_link_4</parent>
+      <child>lss_arm_end_effector_r</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>1.570796326794897</upper>
+          <effort>6.5687857000000003</effort>
+          <velocity>6.2830000000000004</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <friction>0.40000000000000002</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='lss_arm_end_effector_r'>
+      <pose relative_to='lss_arm_gripper_r'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0.030801 -0.014101 0.001312 0 -0 0</pose>
+        <mass>0.016626296998653301</mass>
+        <inertia>
+          <ixx>6.3897678652547797e-07</ixx>
+          <ixy>-1.49469409770964e-12</ixy>
+          <ixz>-4.4162175213378902e-07</ixz>
+          <iyy>3.00353485001635e-06</iyy>
+          <iyz>-4.3470891662511301e-12</iyz>
+          <izz>2.5728912044111301e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='lss_arm_end_effector_r_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/collision/end_effector_r.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>247.75</mu>
+              <mu2>247.75</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='lss_arm_end_effector_r_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/visual/end_effector_r.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.375 0.375 0.375 1</diffuse>
+          <ambient>0.375 0.375 0.375 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <static>0</static>
+    <plugin name='ign_ros2_control::IgnitionROS2ControlPlugin' filename='ign_ros2_control-system'>
+      <parameters>/home/geraldineb/Documents/lss_ign_moveit/install/share/lss_arm_moveit/config/controllers_effort.yaml</parameters>
+    </plugin>
+  </model>
+</sdf>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>lss_arm</name>
+  <version>1.0.0</version>
+  <description>Metapackage for LSS 4DoF Arm</description>
+  <maintainer email="geraldinebc94@gmail.com">Geraldine Barreto</maintainer>
+  <author>Geraldine Barreto</author>
+  <license>BSD</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <build_depend>lss_arm_description</build_depend>
+  <build_depend>lss_arm_moveit</build_depend>
+  <build_depend>xacro</build_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

@@ -3,7 +3,7 @@
      Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot name="lss_4dof_arm">
-    <link name="dummy">
+    <link name="base_link">
     </link>
     <link name="link_0">
         <inertial>
@@ -28,7 +28,7 @@
         </collision>
     </link>
     <joint name="dummy_joint" type="fixed">
-     <parent link="dummy"/>
+     <parent link="base_link"/>
      <child link="link_0"/>
     </joint>
     <link name="link_1">

@@ -4,10 +4,26 @@
     <xacro:include filename="$(find turtlebot4_description)/urdf/lite/turtlebot4.urdf.xacro" />
 
     <!-- Offsets -->
-    <xacro:property name="base_rotate_z_offset"   value="${9.5*cm2m}" />
-    <xacro:property name="base_rotate_x_offset"   value="${8.5*cm2m}" />
-
+    <xacro:property name="base_rotate_z_offset"   value="${20*cm2m}" />
+    <xacro:property name="base_rotate_x_offset"   value="${6.3*cm2m}" />
+    
     <!-- LSS Arm model -->
+    <link name="lss_base">
+        <visual>
+            <origin xyz="0 0 0" rpy="1.571 0 1.571" />
+            <geometry>
+                <mesh filename="package://lss_arm_description/meshes/visual/lss_base.STL" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="">
+                <color rgba="0.3 0.3 0.3 1" />
+            </material>
+        </visual>
+    </link>
+    <joint name="base_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="lss_base"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
     <link name="link_0">
         <inertial>
             <origin xyz="-9.22746070072536E-09 0.00772579323332284 0.0258164486308589" rpy="0 0 0" />
@@ -15,7 +31,7 @@
             <inertia ixx="3.06926142332185E-05" ixy="9.19227938875618E-11" ixz="2.60960163114495E-12" iyy="2.37938175373349E-05" iyz="2.14419674075701E-07" izz="4.37402989726652E-05" />
         </inertial>
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="0 0 0" rpy="0 0 1.57" />
             <geometry>
                 <mesh filename="package://lss_arm_description/meshes/visual/link_0.STL" />
             </geometry>
@@ -24,7 +40,7 @@
             </material>
         </visual>
         <collision>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="0 0 0" rpy="0 0 1.57" />
             <geometry>
                 <mesh filename="package://lss_arm_description/meshes/collision/link_0.STL" />
             </geometry>
@@ -32,7 +48,7 @@
     </link>
 
     <joint name="arm_base" type="fixed">
-     <parent link="base_link"/>
+     <parent link="lss_base"/>
      <child link="link_0"/>
      <origin xyz="${base_rotate_x_offset} 0 ${base_rotate_z_offset}" rpy="0 0 0"/>
     </joint>

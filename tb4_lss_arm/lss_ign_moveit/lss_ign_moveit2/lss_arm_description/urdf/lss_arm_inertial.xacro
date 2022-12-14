@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!-- Macro for inertial properties of LSS DoF Arm -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!--            -->
+  <!-- Properties -->
+  <!--            -->
+  <xacro:property name="link_0_mesh" value="link_0"/>
+  <xacro:property name="link_1_mesh" value="link_1"/>
+  <xacro:property name="link_2_mesh" value="link_2"/>
+  <xacro:property name="link_3_mesh" value="link_3"/>
+  <xacro:property name="link_4_mesh" value="link_4"/>
+  <xacro:property name="end_effector_r_mesh" value="end_effector_r"/>
+  <xacro:property name="end_effector_l_mesh" value="end_effector_l"/>
+
+
+  <!--       -->
+  <!-- Macro -->
+  <!--       -->
+  <xacro:property name="mesh_offset_rpy" value="0 0 0"/>
+  <xacro:macro name="lss_arm_inertial" params="
+    mesh
+    mesh_offset_rpy:=${mesh_offset_rpy}
+  ">
+    <xacro:if value="${mesh == link_0_mesh}">
+      <inertial>
+          <origin xyz="-9.22746070072536E-09 0.00772579323332284 0.0258164486308589" rpy="${mesh_offset_rpy}" />
+          <mass value="0.0745235989082936" />
+          <inertia ixx="3.06926142332185E-05" ixy="9.19227938875618E-11" ixz="2.60960163114495E-12" iyy="2.37938175373349E-05" iyz="2.14419674075701E-07" izz="4.37402989726652E-05" />
+      </inertial>
+    </xacro:if>
+
+    <xacro:if value="${mesh == link_1_mesh}">
+      <inertial>
+          <origin xyz="1.01932002252511E-06 0.0346260395806251 0.000106547591030595" rpy="${mesh_offset_rpy}" />
+          <mass value="0.0658784270809996" />
+          <inertia ixx="2.21234278407549E-05" ixy="9.24359378260813E-11" ixz="-3.0028304734589E-12" iyy="2.30585181059312E-05" iyz="-2.19526468312218E-07" izz="1.89994043624137E-05" />
+      </inertial>
+    </xacro:if>
+
+    <xacro:if value="${mesh == link_2_mesh}">
+      <inertial>
+          <origin xyz="-0.111778545935364 0.0336104387117684 0.000180852718742204" rpy="${mesh_offset_rpy}" />
+          <mass value="0.0616037662847113" />
+          <inertia ixx="1.66852308837933E-05" ixy="-1.03329219740433E-06" ixz="-4.43310654754874E-08" iyy="1.20242622304033E-05" iyz="-2.15007795219099E-07" izz="1.41673473261847E-05" />
+      </inertial>
+    </xacro:if>
+
+    <xacro:if value="${mesh == link_3_mesh}">
+      <inertial>
+          <origin xyz="0.119392702406077 0.0410364992253052 0.000154048902422472" rpy="${mesh_offset_rpy}" />
+          <mass value="0.062951277283338" />
+          <inertia ixx="1.11886789972704E-05" ixy="-2.66768170363405E-06" ixz="-2.01609481649329E-07" iyy="1.79991460198167E-05" iyz="-6.9561531958934E-08" izz="1.46158276124359E-05" />
+      </inertial>
+    </xacro:if>
+
+    <xacro:if value="${mesh == link_4_mesh}">
+      <inertial>
+          <origin xyz="0.0463345232293113 -0.000217116498809761 0.000342446314582681" rpy="${mesh_offset_rpy}" />
+          <mass value="0.0552917317501261" />
+          <inertia ixx="1.81135754161747E-05" ixy="3.0049831947197E-12" ixz="9.20482185162439E-11" iyy="1.48586070714427E-05" iyz="2.14450571018836E-07" izz="9.04738520213568E-06" />
+      </inertial>
+    </xacro:if>
+
+    <xacro:if value="${mesh == end_effector_r_mesh}">
+      <inertial>
+          <origin xyz="0.0308013779043008 -0.0141013526461647 0.00131237715084586" rpy="${mesh_offset_rpy}" />
+          <mass value="0.0166262969986533" />
+          <inertia ixx="6.38976786525478E-07" ixy="-1.49469409770964E-12" ixz="-4.41621752133789E-07" iyy="3.00353485001635E-06" iyz="-4.34708916625113E-12" izz="2.57289120441113E-06" />
+      </inertial>
+    </xacro:if>
+
+    <xacro:if value="${mesh == end_effector_l_mesh}">
+      <inertial>
+          <origin xyz="0.0309551132879063 -0.0140672528822861 -0.0013189270605785" rpy="${mesh_offset_rpy}" />
+          <mass value="0.0165437278185932" />
+          <inertia ixx="6.37840843695913E-07" ixy="-1.67462842205218E-12" ixz="4.41621808330111E-07" iyy="3.00246171921638E-06" iyz="3.99757576475728E-12" izz="2.57175512278327E-06" />
+      </inertial>
+    </xacro:if>
+  </xacro:macro>
+
+</robot>

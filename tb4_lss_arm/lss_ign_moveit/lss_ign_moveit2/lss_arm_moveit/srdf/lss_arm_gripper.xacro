@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!--       -->
+  <!-- Macro -->
+  <!--       -->
+  <xacro:macro name="lss_arm_gripper" params="
+    prefix:=lss_arm_
+  ">
+    <group name="gripper">
+        <link name="${prefix}end_effector_r"/>
+        <link name="${prefix}end_effector_l"/>
+        <joint name="${prefix}gripper_r" />
+        <passive_joint name="${prefix}gripper_l" />
+    </group>
+    <group_state group="gripper" name="open">
+        <joint name="${prefix}gripper_r" value="0.785"/>
+        <joint name="${prefix}gripper_l" value="-0.785"/>
+    </group_state>
+    <group_state group="gripper" name="close">
+        <joint name="${prefix}gripper_r" value="0.0"/>
+        <joint name="${prefix}gripper_l" value="0.0"/>
+    </group_state>
+  </xacro:macro>
+</robot>
