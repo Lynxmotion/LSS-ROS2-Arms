@@ -63,6 +63,11 @@ Visualization Manager:
           Expand Link Details: false
           Expand Tree: false
           Link Tree Style: Links in Alphabetic Order
+          lss_arm_base_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
           lss_arm_end_effector_l:
             Alpha: 1
             Show Axes: false
@@ -73,6 +78,10 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          lss_arm_hand_tcp:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           lss_arm_link_0:
             Alpha: 1
             Show Axes: false
@@ -94,11 +103,6 @@ Visualization Manager:
             Show Trail: false
             Value: true
           lss_arm_link_4:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          lss_arm_hand_tcp:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -152,6 +156,11 @@ Visualization Manager:
           Expand Link Details: false
           Expand Tree: false
           Link Tree Style: Links in Alphabetic Order
+          lss_arm_base_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
           lss_arm_end_effector_l:
             Alpha: 1
             Show Axes: false
@@ -162,6 +171,10 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          lss_arm_hand_tcp:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           lss_arm_link_0:
             Alpha: 1
             Show Axes: false
@@ -198,8 +211,8 @@ Visualization Manager:
       Velocity_Scaling_Factor: 1
   Enabled: true
   Global Options:
-    Background Color: 48; 48; 48
-    Fixed Frame: lss_arm_link_0
+    Background Color: 215; 215; 215
+    Fixed Frame: lss_arm_base_link
     Frame Rate: 30
   Name: root
   Tools:
@@ -242,7 +255,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 0.7799999713897705
+      Distance: 0.9784319400787354
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -282,5 +295,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1280
-  X: 0
-  Y: 27
+  X: 598
+  Y: 119

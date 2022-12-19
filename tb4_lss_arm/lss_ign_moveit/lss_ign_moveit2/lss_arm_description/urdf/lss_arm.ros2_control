@@ -35,21 +35,6 @@
           <plugin>${plugin}</plugin>
         </xacro:unless>
       </hardware>
-      <joint name="${prefix}joint0">
-        <param name="initial_position">${initial_positions['lss_arm_joint0']}</param>
-        <xacro:if value="${'position' in command_interface}">
-          <command_interface name="position"/>
-        </xacro:if>
-        <xacro:if value="${'velocity' in command_interface}">
-          <command_interface name="velocity"/>
-        </xacro:if>
-        <xacro:if value="${'effort' in command_interface}">
-          <command_interface name="effort"/>
-        </xacro:if>
-        <state_interface name="position"/>
-        <state_interface name="velocity"/>
-        <state_interface name="effort"/>
-      </joint>
       <joint name="${prefix}joint1">
         <param name="initial_position">${initial_positions['lss_arm_joint1']}</param>
         <xacro:if value="${'position' in command_interface}">
@@ -82,6 +67,21 @@
       </joint>
       <joint name="${prefix}joint3">
         <param name="initial_position">${initial_positions['lss_arm_joint3']}</param>
+        <xacro:if value="${'position' in command_interface}">
+          <command_interface name="position"/>
+        </xacro:if>
+        <xacro:if value="${'velocity' in command_interface}">
+          <command_interface name="velocity"/>
+        </xacro:if>
+        <xacro:if value="${'effort' in command_interface}">
+          <command_interface name="effort"/>
+        </xacro:if>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+      <joint name="${prefix}joint4">
+        <param name="initial_position">${initial_positions['lss_arm_joint4']}</param>
         <xacro:if value="${'position' in command_interface}">
           <command_interface name="position"/>
         </xacro:if>

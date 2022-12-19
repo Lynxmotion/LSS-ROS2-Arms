@@ -157,6 +157,11 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          lss_arm_base_link
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
           lss_arm_link_0:
             Alpha: 1
             Show Axes: false
@@ -193,8 +198,8 @@ Visualization Manager:
       Velocity_Scaling_Factor: 1
   Enabled: true
   Global Options:
-    Background Color: 48; 48; 48
-    Fixed Frame: lss_arm_link_0
+    Background Color: 215; 215; 215
+    Fixed Frame: lss_arm_base_link
     Frame Rate: 30
   Name: root
   Tools:

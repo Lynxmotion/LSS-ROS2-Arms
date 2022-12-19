@@ -31,11 +31,6 @@ MoveItFollowTarget::MoveItFollowTarget() : Node("ex_follow_target"),
   // Use upper joint velocity and acceleration limits
   this->move_group_.setMaxAccelerationScalingFactor(1.0);
   this->move_group_.setMaxVelocityScalingFactor(1.0);
-  //Test
-  // this->move_group_.setPlanningTime(30);
-  // this->move_group_.setGoalOrientationTolerance(0.05);
-  // this->move_group_.setGoalJointTolerance(0.005);
-  // this->move_group_.setGoalPositionTolerance(0.005);
 
   // Subscribe to target pose
   target_pose_sub_ = this->create_subscription<geometry_msgs::msg::PoseStamped>("/target_pose", rclcpp::QoS(1), std::bind(&MoveItFollowTarget::target_pose_callback, this, std::placeholders::_1));
@@ -54,9 +49,7 @@ void MoveItFollowTarget::target_pose_callback(const geometry_msgs::msg::PoseStam
   RCLCPP_INFO(this->get_logger(), "Target pose has changed. Planning and executing...");
 
   // Plan and execute motion
-  this->move_group_.setPoseTarget(msg->pose); //, "lss_arm_link_4"
-  //this->move_group_.setJointValueTarget(msg->pose, "lss_arm_hand_tcp");
-  //this->move_group_.setApproximateJointValueTarget(msg->pose);
+  this->move_group_.setPoseTarget(msg->pose);
   this->move_group_.move();
 
   // Update for next callback

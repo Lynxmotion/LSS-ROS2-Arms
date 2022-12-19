@@ -14,10 +14,10 @@ controller_manager:
 joint_trajectory_controller:
   ros__parameters:
     joints:
-      - lss_arm_joint0
       - lss_arm_joint1
       - lss_arm_joint2
       - lss_arm_joint3
+      - lss_arm_joint4
     command_interfaces:
       - position
     state_interfaces:

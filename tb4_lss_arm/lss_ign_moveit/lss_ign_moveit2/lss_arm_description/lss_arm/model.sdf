@@ -1,26 +1,46 @@
 <sdf version='1.8'>
   <model name='lss_arm'>
-    <joint name='lss_arm_joint_base' type='fixed'>
+    <joint name='lss_arm_base_joint' type='fixed'>
       <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
       <parent>world</parent>
-      <child>lss_arm_link_0</child>
+      <child>lss_arm_base_link</child>
     </joint>
-    <link name='lss_arm_link_0'>
-      <pose relative_to='lss_arm_joint_base'>0 0 0 0 -0 0</pose>
+    <link name='lss_arm_base_link'>
+      <pose relative_to='lss_arm_base_joint'>0 0 0 0 -0 0</pose>
       <inertial>
-        <pose>-0 0.007726 0.025816 0 -0 0</pose>
-        <mass>0.074523598908293603</mass>
+        <pose>0.037125 0.004626 0.132939 0 -0 0</pose>
+        <mass>0.12174108136660181</mass>
         <inertia>
-          <ixx>3.0692614233218497e-05</ixx>
-          <ixy>9.1922793887561806e-11</ixy>
-          <ixz>2.6096016311449501e-12</ixz>
-          <iyy>2.3793817537334899e-05</iyy>
-          <iyz>2.1441967407570099e-07</iyz>
-          <izz>4.3740298972665199e-05</izz>
+          <ixx>0.0015361055100058319</ixx>
+          <ixy>-1.45709201167553e-05</ixy>
+          <ixz>-0.00041875645867104602</ixz>
+          <iyy>0.001649013901692166</iyy>
+          <iyz>-5.1961417353213478e-05</iyz>
+          <izz>0.0001671721556803612</izz>
         </inertia>
       </inertial>
-      <collision name='lss_arm_link_0_collision'>
+      <collision name='lss_arm_base_link_collision'>
         <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/collision/lss_base.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.29999999999999999</mu>
+              <mu2>0.29999999999999999</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='lss_arm_base_link_fixed_joint_lump__lss_arm_link_0_collision_1'>
+        <pose>0.063 0 0.2 0 -0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -33,14 +53,27 @@
           </contact>
           <friction>
             <ode>
-              <mu>247.75</mu>
-              <mu2>247.75</mu2>
+              <mu>0.29999999999999999</mu>
+              <mu2>0.29999999999999999</mu2>
             </ode>
           </friction>
         </surface>
       </collision>
-      <visual name='lss_arm_link_0_visual'>
+      <visual name='lss_arm_base_link_visual'>
         <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/visual/lss_base.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.375 0.375 0.375 1</diffuse>
+          <ambient>0.375 0.375 0.375 1</ambient>
+        </material>
+      </visual>
+      <visual name='lss_arm_base_link_fixed_joint_lump__lss_arm_link_0_visual_1'>
+        <pose>0.063 0 0.2 0 -0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -53,9 +86,9 @@
         </material>
       </visual>
     </link>
-    <joint name='lss_arm_joint0' type='revolute'>
-      <pose relative_to='lss_arm_link_0'>0 0 0.0427 1.5708 -0 0</pose>
-      <parent>lss_arm_link_0</parent>
+    <joint name='lss_arm_joint1' type='revolute'>
+      <pose relative_to='lss_arm_base_link'>0.063 0 0.2427 1.5708 -0 0</pose>
+      <parent>lss_arm_base_link</parent>
       <child>lss_arm_link_1</child>
       <axis>
         <xyz>0 1 0</xyz>
@@ -82,17 +115,17 @@
       </physics>
     </joint>
     <link name='lss_arm_link_1'>
-      <pose relative_to='lss_arm_joint0'>0 0 0 0 -0 0</pose>
+      <pose relative_to='lss_arm_joint1'>0 0 0 0 -0 0</pose>
       <inertial>
-        <pose>1e-06 0.034626 0.000107 0 -0 0</pose>
-        <mass>0.065878427080999599</mass>
+        <pose>0 0.034805 0.00015 0 -0 0</pose>
+        <mass>0.062887576347183394</mass>
         <inertia>
-          <ixx>2.2123427840754901e-05</ixx>
-          <ixy>9.2435937826081296e-11</ixy>
-          <ixz>-3.0028304734588998e-12</ixz>
-          <iyy>2.30585181059312e-05</iyy>
-          <iyz>-2.1952646831221799e-07</iyz>
-          <izz>1.8999404362413699e-05</izz>
+          <ixx>2.20425725995968e-05</ixx>
+          <ixy>9.1993511245884802e-11</ixy>
+          <ixz>1.70368679861891e-13</ixz>
+          <iyy>2.2948590897456299e-05</iyy>
+          <iyz>-2.19524118186986e-07</iyz>
+          <izz>1.89578527653699e-05</izz>
         </inertia>
       </inertial>
       <collision name='lss_arm_link_1_collision'>
@@ -109,8 +142,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>247.75</mu>
-              <mu2>247.75</mu2>
+              <mu>0.29999999999999999</mu>
+              <mu2>0.29999999999999999</mu2>
             </ode>
           </friction>
         </surface>
@@ -129,7 +162,7 @@
         </material>
       </visual>
     </link>
-    <joint name='lss_arm_joint1' type='revolute'>
+    <joint name='lss_arm_joint2' type='revolute'>
       <pose relative_to='lss_arm_link_1'>0 0.0588 0 0 0 -1.36211</pose>
       <parent>lss_arm_link_1</parent>
       <child>lss_arm_link_2</child>
@@ -158,17 +191,17 @@
       </physics>
     </joint>
     <link name='lss_arm_link_2'>
-      <pose relative_to='lss_arm_joint1'>0 0 0 0 -0 0</pose>
+      <pose relative_to='lss_arm_joint2'>0 0 0 0 -0 0</pose>
       <inertial>
-        <pose>-0.111779 0.03361 0.000181 0 -0 0</pose>
-        <mass>0.0616037662847113</mass>
+        <pose>-0.112045 0.033642 0.000234 0 -0 0</pose>
+        <mass>0.059220729789014201</mass>
         <inertia>
-          <ixx>1.6685230883793299e-05</ixx>
-          <ixy>-1.03329219740433e-06</ixy>
-          <ixz>-4.4331065475487397e-08</ixz>
-          <iyy>1.2024262230403299e-05</iyy>
-          <iyz>-2.1500779521909901e-07</iyz>
-          <izz>1.41673473261847e-05</izz>
+          <ixx>1.6633399872544299e-05</ixx>
+          <ixy>-1.03352394963547e-06</ixy>
+          <ixz>-4.4327410811638599e-08</ixz>
+          <iyy>1.1971383214162999e-05</iyy>
+          <iyz>-2.15005479062966e-07</iyz>
+          <izz>1.41577057658295e-05</izz>
         </inertia>
       </inertial>
       <collision name='lss_arm_link_2_collision'>
@@ -185,8 +218,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>247.75</mu>
-              <mu2>247.75</mu2>
+              <mu>0.29999999999999999</mu>
+              <mu2>0.29999999999999999</mu2>
             </ode>
           </friction>
         </surface>
@@ -205,7 +238,7 @@
         </material>
       </visual>
     </link>
-    <joint name='lss_arm_joint2' type='revolute'>
+    <joint name='lss_arm_joint3' type='revolute'>
       <pose relative_to='lss_arm_link_2'>-0.129548 0.053398 0 0 -0 1.02985</pose>
       <parent>lss_arm_link_2</parent>
       <child>lss_arm_link_3</child>
@@ -234,17 +267,17 @@
       </physics>
     </joint>
     <link name='lss_arm_link_3'>
-      <pose relative_to='lss_arm_joint2'>0 0 0 0 -0 0</pose>
+      <pose relative_to='lss_arm_joint3'>0 0 0 0 -0 0</pose>
       <inertial>
-        <pose>0.119393 0.041036 0.000154 0 -0 0</pose>
-        <mass>0.062951277283338006</mass>
+        <pose>0.119623 0.041151 0.000345 0 -0 0</pose>
+        <mass>0.060149035312470803</mass>
         <inertia>
-          <ixx>1.11886789972704e-05</ixx>
-          <ixy>-2.66768170363405e-06</ixy>
-          <ixz>-2.0160948164932901e-07</ixz>
-          <iyy>1.7999146019816699e-05</iyy>
-          <iyz>-6.9561531958933997e-08</iyz>
-          <izz>1.4615827612435901e-05</izz>
+          <ixx>1.1113660383281e-05</ixx>
+          <ixy>-2.6746693260721798e-06</ixy>
+          <ixz>2.0160569864272201e-07</ixz>
+          <iyy>1.7941964943423101e-05</iyy>
+          <iyz>-6.9564477599757001e-08</iyz>
+          <izz>1.4580709936660301e-05</izz>
         </inertia>
       </inertial>
       <collision name='lss_arm_link_3_collision'>
@@ -261,8 +294,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>247.75</mu>
-              <mu2>247.75</mu2>
+              <mu>0.29999999999999999</mu>
+              <mu2>0.29999999999999999</mu2>
             </ode>
           </friction>
         </surface>
@@ -281,7 +314,7 @@
         </material>
       </visual>
     </link>
-    <joint name='lss_arm_joint3' type='revolute'>
+    <joint name='lss_arm_joint4' type='revolute'>
       <pose relative_to='lss_arm_link_3'>0.154274 0.053233 0 0 -0 0.33226</pose>
       <parent>lss_arm_link_3</parent>
       <child>lss_arm_link_4</child>
@@ -310,17 +343,17 @@
       </physics>
     </joint>
     <link name='lss_arm_link_4'>
-      <pose relative_to='lss_arm_joint3'>0 0 0 0 -0 0</pose>
+      <pose relative_to='lss_arm_joint4'>0 0 0 0 -0 0</pose>
       <inertial>
-        <pose>0.046335 -0.000217 0.000342 0 -0 0</pose>
-        <mass>0.055291731750126097</mass>
+        <pose>0.044689 -0.000131 0.000356 0 -0 0</pose>
+        <mass>0.0556319659037934</mass>
         <inertia>
-          <ixx>1.8113575416174701e-05</ixx>
-          <ixy>3.0049831947197e-12</ixy>
-          <ixz>9.2048218516243899e-11</ixz>
-          <iyy>1.48586070714427e-05</iyy>
-          <iyz>2.14450571018836e-07</iyz>
-          <izz>9.0473852021356797e-06</izz>
+          <ixx>1.8133774910878799e-05</ixx>
+          <ixy>-6.9951384690848697e-14</ixy>
+          <ixz>9.1994103666448402e-11</ixz>
+          <iyy>1.49173144124065e-05</iyy>
+          <iyz>2.14447838213905e-07</iyz>
+          <izz>9.1279672834269492e-06</izz>
         </inertia>
       </inertial>
       <collision name='lss_arm_link_4_collision'>
@@ -337,8 +370,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>247.75</mu>
-              <mu2>247.75</mu2>
+              <mu>0.29999999999999999</mu>
+              <mu2>0.29999999999999999</mu2>
             </ode>
           </friction>
         </surface>
@@ -388,15 +421,15 @@
     <link name='lss_arm_end_effector_l'>
       <pose relative_to='lss_arm_gripper_l'>0 0 0 0 -0 0</pose>
       <inertial>
-        <pose>0.030955 -0.014067 -0.001319 0 -0 0</pose>
-        <mass>0.016543727818593201</mass>
+        <pose>0.030773 -0.014098 -0.001327 0 -0 0</pose>
+        <mass>0.0154295568992377</mass>
         <inertia>
-          <ixx>6.3784084369591304e-07</ixx>
-          <ixy>-1.6746284220521799e-12</ixy>
-          <ixz>4.4162180833011097e-07</ixz>
-          <iyy>3.0024617192163799e-06</iyy>
-          <iyz>3.9975757647572798e-12</iyz>
-          <izz>2.5717551227832701e-06</izz>
+          <ixx>6.1324288588371195e-07</ixx>
+          <ixy>-1.69555790218149e-12</ixy>
+          <ixz>4.4162176460178102e-07</ixz>
+          <iyy>2.99899721506146e-06</iyy>
+          <iyz>4.0934388850918597e-12</iyz>
+          <izz>2.5471565367428799e-06</izz>
         </inertia>
       </inertial>
       <collision name='lss_arm_end_effector_l_collision'>
@@ -413,8 +446,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>247.75</mu>
-              <mu2>247.75</mu2>
+              <mu>0.29999999999999999</mu>
+              <mu2>0.29999999999999999</mu2>
             </ode>
           </friction>
         </surface>
@@ -464,15 +497,15 @@
     <link name='lss_arm_end_effector_r'>
       <pose relative_to='lss_arm_gripper_r'>0 0 0 0 -0 0</pose>
       <inertial>
-        <pose>0.030801 -0.014101 0.001312 0 -0 0</pose>
-        <mass>0.016626296998653301</mass>
+        <pose>0.031071 -0.014045 0.00134 0 -0 0</pose>
+        <mass>0.0152813047822834</mass>
         <inertia>
-          <ixx>6.3897678652547797e-07</ixx>
-          <ixy>-1.49469409770964e-12</ixy>
-          <ixz>-4.4162175213378902e-07</ixz>
-          <iyy>3.00353485001635e-06</iyy>
-          <iyz>-4.3470891662511301e-12</iyz>
-          <izz>2.5728912044111301e-06</izz>
+          <ixx>6.12119941271843e-07</ixx>
+          <ixy>-1.6104488931588599e-12</ixy>
+          <ixz>-4.4162176335349601e-07</ixz>
+          <iyy>2.99804070646807e-06</iyy>
+          <iyz>-3.8879675590964998e-12</iyz>
+          <izz>2.54603357212087e-06</izz>
         </inertia>
       </inertial>
       <collision name='lss_arm_end_effector_r_collision'>
@@ -489,8 +522,8 @@
           </contact>
           <friction>
             <ode>
-              <mu>247.75</mu>
-              <mu2>247.75</mu2>
+              <mu>0.29999999999999999</mu>
+              <mu2>0.29999999999999999</mu2>
             </ode>
           </friction>
         </surface>

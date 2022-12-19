@@ -12,10 +12,10 @@
     <chain base_link="lss_arm_link_0" tip_link="lss_arm_hand_tcp"/>
   </group>
   <group_state group="lss_arm" name="home">
-    <joint name="lss_arm_joint0" value="0.0"/>
     <joint name="lss_arm_joint1" value="0.0"/>
-    <joint name="lss_arm_joint2" value="0.0"/>
-    <joint name="lss_arm_joint3" value="0.0"/>
+    <joint name="lss_arm_joint2" value="0.8"/>
+    <joint name="lss_arm_joint3" value="-0.4"/>
+    <joint name="lss_arm_joint4" value="-0.4"/>
   </group_state>
   <disable_collisions link1="lss_arm_link_0" link2="lss_arm_link_1" reason="Adjacent"/>
   <disable_collisions link1="lss_arm_link_0" link2="lss_arm_link_2" reason="Never"/>

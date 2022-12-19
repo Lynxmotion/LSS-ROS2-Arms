@@ -25,7 +25,7 @@ low_pass_filter_coeff: 1.05
 
 ## MoveIt properties
 move_group_name: lss_arm # Often 'manipulator' or 'arm'
-planning_frame: lss_arm_link_0 # The MoveIt planning frame. Often 'base_link' or 'world'
+planning_frame: lss_arm_base_link # The MoveIt planning frame. Often 'base_link' or 'world'
 
 ## Other frames
 ee_frame_name: lss_arm_hand_tcp # The name of the end effector link, used to return the EE pose

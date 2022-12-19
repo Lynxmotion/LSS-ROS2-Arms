@@ -12,66 +12,73 @@
   <!--            -->
   <!-- Properties -->
   <!--            -->
-  <xacro:property name="joint_base_name" value="joint_base"/>
+  <xacro:property name="joint_base_name" value="base_joint"/>
   <xacro:property name="joint_base_type" value="fixed"/>
-  <xacro:property name="link_0_name" value="link_0"/>
-  <xacro:property name="link_0_mu" value="247.75"/>
+  <xacro:property name="link_base_name" value="base_link"/>
+  <xacro:property name="link_base_mu" value="0.3"/>
 
-  <xacro:property name="joint1_name" value="joint0"/>
+  <xacro:property name="joint0_name" value="joint0"/>
+  <xacro:property name="joint0_type" value="fixed"/>
+  <xacro:property name="joint0_origin_xyz" value="0.063 0 0.2"/>
+  <xacro:property name="joint0_origin_rpy" value="0 0 0"/>
+  <xacro:property name="link_0_name" value="link_0"/>
+  <xacro:property name="link_0_mu" value="0.3"/>
+
+  <xacro:property name="joint1_name" value="joint1"/>
   <xacro:property name="joint1_type" value="revolute"/>
-  <xacro:property name="joint1_origin_xyz" value="0 0 0.0427"/>
-  <xacro:property name="joint1_origin_rpy" value="1.5708 0 0"/>
+  <xacro:property name="joint1_origin_xyz" value="0 0 0.042699975"/>
+  <xacro:property name="joint1_origin_rpy" value="${pi/2} 0 0"/>
   <xacro:property name="joint1_axis_xyz" value="0 1 0"/>
-  <xacro:property name="joint1_lower_limit" value="${-180*pi/180}"/>
-  <xacro:property name="joint1_upper_limit" value="${180*pi/180}"/>
+  <xacro:property name="joint1_lower_limit" value="${-pi}"/>
+  <xacro:property name="joint1_upper_limit" value="${pi}"/>
   <xacro:property name="joint1_velocity_limit" value="6.283"/>
   <xacro:property name="joint1_torque_limit" value="6.5687857"/>
   <xacro:property name="joint1_damping" value="0.01"/>
   <xacro:property name="joint1_friction" value="3.48"/>
   <xacro:property name="link_1_name" value="link_1"/>
-  <xacro:property name="link_1_mu" value="247.75"/>
+  <xacro:property name="link_1_mu" value="0.3"/>
 
-  <xacro:property name="joint2_name" value="joint1"/>
+  <xacro:property name="joint2_name" value="joint2"/>
   <xacro:property name="joint2_type" value="revolute"/>
   <xacro:property name="joint2_origin_xyz" value="0 0.0588000249999991 0"/>
   <xacro:property name="joint2_origin_rpy" value="0 0 -1.3621104667496"/>
   <xacro:property name="joint2_axis_xyz" value="0 0 1"/>
-  <xacro:property name="joint2_lower_limit" value="${-90*pi/180}"/>
-  <xacro:property name="joint2_upper_limit" value="${90*pi/180}"/>
+  <xacro:property name="joint2_lower_limit" value="${-pi/2}"/>
+  <xacro:property name="joint2_upper_limit" value="${pi/2}"/>
   <xacro:property name="joint2_velocity_limit" value="6.283"/>
   <xacro:property name="joint2_torque_limit" value="6.5687857"/>
   <xacro:property name="joint2_damping" value="0.01"/>
   <xacro:property name="joint2_friction" value="3.48"/>
   <xacro:property name="link_2_name" value="link_2"/>
-  <xacro:property name="link_2_mu" value="247.75"/>
+  <xacro:property name="link_2_mu" value="0.3"/>
 
-  <xacro:property name="joint3_name" value="joint2"/>
+  <xacro:property name="joint3_name" value="joint3"/>
   <xacro:property name="joint3_type" value="revolute"/>
   <xacro:property name="joint3_origin_xyz" value="-0.12954806230389 0.0533975613048809 0"/>
   <xacro:property name="joint3_origin_rpy" value="0 0 1.02985068022995"/>
   <xacro:property name="joint3_axis_xyz" value="0 0 1"/>
-  <xacro:property name="joint3_lower_limit" value="${-90*pi/180}"/>
-  <xacro:property name="joint3_upper_limit" value="${90*pi/180}"/>
+  <xacro:property name="joint3_lower_limit" value="${-pi/2}"/>
+  <xacro:property name="joint3_upper_limit" value="${pi/2}"/>
   <xacro:property name="joint3_velocity_limit" value="6.283"/>
   <xacro:property name="joint3_torque_limit" value="6.5687857"/>
   <xacro:property name="joint3_damping" value="0.01"/>
   <xacro:property name="joint3_friction" value="3.48"/>
   <xacro:property name="link_3_name" value="link_3"/>
-  <xacro:property name="link_3_mu" value="247.75"/>
+  <xacro:property name="link_3_mu" value="0.3"/>
 
-  <xacro:property name="joint4_name" value="joint3"/>
+  <xacro:property name="joint4_name" value="joint4"/>
   <xacro:property name="joint4_type" value="revolute"/>
   <xacro:property name="joint4_origin_xyz" value="0.154274210199929 0.0532325846374996 0"/>
   <xacro:property name="joint4_origin_rpy" value="0 0 0.332259786519651"/>
   <xacro:property name="joint4_axis_xyz" value="0 0 1"/>
-  <xacro:property name="joint4_lower_limit" value="${-90*pi/180}"/>
-  <xacro:property name="joint4_upper_limit" value="${90*pi/180}"/>
+  <xacro:property name="joint4_lower_limit" value="${-pi/2}"/>
+  <xacro:property name="joint4_upper_limit" value="${pi/2}"/>
   <xacro:property name="joint4_velocity_limit" value="6.283"/>
   <xacro:property name="joint4_torque_limit" value="6.5687857"/>
   <xacro:property name="joint4_damping" value="0.01"/>
   <xacro:property name="joint4_friction" value="3.48"/>
   <xacro:property name="link_4_name" value="link_4"/>
-  <xacro:property name="link_4_mu" value="247.75"/>
+  <xacro:property name="link_4_mu" value="0.3"/>
 
   <xacro:property name="gripper_name" value="gripper_link"/>
   <xacro:property name="gripper_origin_xyz" value="0 0 0"/>
@@ -101,11 +108,28 @@
     <!-- Base -->
     <xacro:lss_arm_joint
     parent="${base_parent}"
-    child="${prefix}${link_0_name}"
+    child="${prefix}${link_base_name}"
     joint_name="${prefix}${joint_base_name}"
     joint_type="${joint_base_type}"
     joint_origin_xyz="${origin_xyz}"
     joint_origin_rpy="${origin_rpy}"
+    gazebo_preserve_fixed_joint="${gazebo_preserve_fixed_joint}"
+    />
+    <xacro:lss_arm_link
+    link_name="${prefix}${link_base_name}"
+    mesh="${link_base_mesh}"
+    collision="${collision}"
+    mu="${link_base_mu}"
+    />
+
+    <!-- 0 -->
+    <xacro:lss_arm_joint
+    parent="${prefix}${link_base_name}"
+    child="${prefix}${link_0_name}"
+    joint_name="${prefix}${joint0_name}"
+    joint_type="${joint0_type}"
+    joint_origin_xyz="${joint0_origin_xyz}"
+    joint_origin_rpy="${joint0_origin_rpy}"
     gazebo_preserve_fixed_joint="${gazebo_preserve_fixed_joint}"
     />
     <xacro:lss_arm_link
