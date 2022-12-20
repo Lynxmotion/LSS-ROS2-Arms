@@ -32,8 +32,10 @@ def generate_launch_description():
     name = LaunchConfiguration("name")
     prefix = LaunchConfiguration("prefix")
     gripper = LaunchConfiguration("gripper")
+    tb4 = LaunchConfiguration("tb4")
     collision_arm = LaunchConfiguration("collision_arm")
     collision_gripper = LaunchConfiguration("collision_gripper")
+    collision_tb4 = LaunchConfiguration("collision_tb4")
     safety_limits = LaunchConfiguration("safety_limits")
     safety_position_margin = LaunchConfiguration("safety_position_margin")
     safety_k_position = LaunchConfiguration("safety_k_position")
@@ -65,8 +67,14 @@ def generate_launch_description():
             "prefix:=",
             prefix,
             " ",
+            "tb4:=",
+            tb4,
+            " ",
             "gripper:=",
             gripper,
+            " ",
+            "collision_tb4:=",
+            collision_tb4,
             " ",
             "collision_arm:=",
             collision_arm,
@@ -186,12 +194,7 @@ def generate_launch_description():
         "trajectory_execution.allowed_execution_duration_scaling": 1.2,
         "trajectory_execution.allowed_goal_duration_margin": 0.5,
         "trajectory_execution.allowed_start_tolerance": 0.01,
-        # "trajectory_execution.execution_duration_monitoring": False,
     }
-    # "trajectory_execution.allowed_execution_duration_scaling": 10.0,
-    # "trajectory_execution.allowed_goal_duration_margin": 0.5,
-    # "trajectory_execution.allowed_start_tolerance": 0.0,
-    # "trajectory_execution.execution_duration_monitoring": False,
 
     # Controller parameters
     declared_arguments.append(
@@ -365,19 +368,28 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
         ),
         DeclareLaunchArgument(
             "description_filepath",
-            default_value=path.join("urdf", "lss_arm.urdf.xacro"),
+            default_value="urdf/tb4_lss_arm.urdf.xacro",
+            choices=["urdf/lss_arm.urdf.xacro", "urdf/tb4_lss_arm.urdf.xacro"],
             description="Path to xacro or URDF description of the robot, relative to share of `description_package`.",
         ),
         # Naming of the robot
         DeclareLaunchArgument(
             "name",
-            default_value="lss_arm",
+            default_value="tb4_lss_arm",
+            choices=['lss_arm', 'tb4_lss_arm'],
             description="Name of the robot.",
         ),
         DeclareLaunchArgument(
             "prefix",
-            default_value="lss_arm_",
+            default_value="",
             description="Prefix for all robot entities. If modified, then joint names in the configuration of controllers must also be updated.",
+        ),
+        # TB4
+        DeclareLaunchArgument(
+            "tb4",
+            default_value="true",
+            choices=['true', 'false'],
+            description="Flag to enable TB4 platform.",
         ),
         # Gripper
         DeclareLaunchArgument(
@@ -390,6 +402,11 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
             "collision_arm",
             default_value="true",
             description="Flag to enable collision geometry for manipulator's arm.",
+        ),
+        DeclareLaunchArgument(
+            "collision_tb4",
+            default_value="true",
+            description="Flag to enable collision geometry for TB4 platform.",
         ),
         DeclareLaunchArgument(
             "collision_gripper",

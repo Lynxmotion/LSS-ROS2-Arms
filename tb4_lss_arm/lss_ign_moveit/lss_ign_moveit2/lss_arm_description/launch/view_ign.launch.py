@@ -118,8 +118,9 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
         ),
         DeclareLaunchArgument(
             "model",
-            default_value="lss_arm",
-            description="Name or filepath of model to load.",
+            default_value="tb4_lss_arm",
+            choices=['lss_arm', 'tb4_lss_arm'],
+            description="Name of the robot.",
         ),
         # Miscellaneous
         DeclareLaunchArgument(

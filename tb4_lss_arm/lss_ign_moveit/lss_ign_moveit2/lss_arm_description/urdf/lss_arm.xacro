@@ -8,18 +8,24 @@
   <xacro:include filename="$(find lss_arm_description)/urdf/lss_arm_utils.xacro"/>
   <xacro:include filename="$(find lss_arm_description)/urdf/lss_arm.ros2_control"/>
 
-
   <!--            -->
   <!-- Properties -->
   <!--            -->
-  <xacro:property name="joint_base_name" value="base_joint"/>
-  <xacro:property name="joint_base_type" value="fixed"/>
-  <xacro:property name="link_base_name" value="base_link"/>
-  <xacro:property name="link_base_mu" value="0.3"/>
+  <xacro:unless value="$(arg tb4)">
+    <xacro:property name="link_base_name" value="world"/>
+  </xacro:unless>
+  <xacro:if value="$(arg tb4)">
+    <xacro:property name="link_base_name" value="lss_arm_base_link"/>
+  </xacro:if>
 
   <xacro:property name="joint0_name" value="joint0"/>
   <xacro:property name="joint0_type" value="fixed"/>
-  <xacro:property name="joint0_origin_xyz" value="0.063 0 0.2"/>
+  <xacro:unless value="$(arg tb4)">
+    <xacro:property name="joint0_origin_xyz" value="0 0 0"/>
+  </xacro:unless>
+  <xacro:if value="$(arg tb4)">
+    <xacro:property name="joint0_origin_xyz" value="0.063 0 0.2"/>
+  </xacro:if>
   <xacro:property name="joint0_origin_rpy" value="0 0 0"/>
   <xacro:property name="link_0_name" value="link_0"/>
   <xacro:property name="link_0_mu" value="0.3"/>
@@ -84,47 +90,30 @@
   <xacro:property name="gripper_origin_xyz" value="0 0 0"/>
   <xacro:property name="gripper_origin_rpy" value="0 0 0"/>
 
-
-  <!--       -->
-  <!-- Macro -->
-  <!--       -->
-  <xacro:property name="default_origin_xyz" value="0 0 0"/>
-  <xacro:property name="default_origin_rpy" value="0 0 0"/>
-  <xacro:macro name="lss_arm" params="
-    base_parent
-    prefix
-    origin_xyz:=${default_origin_xyz}
-    origin_rpy:=${default_origin_rpy}
-    collision:=true
-    safety_limits:=false
-    safety_position_margin:=${pi/180}
-    safety_k_position:=100.0
-    safety_k_velocity:=40.0
-    ros2_control:=true
-    ros2_control_plugin:=fake
-    ros2_control_command_interface:=effort
-    gazebo_preserve_fixed_joint:=false
-  ">
-    <!-- Base -->
-    <xacro:lss_arm_joint
-    parent="${base_parent}"
-    child="${prefix}${link_base_name}"
-    joint_name="${prefix}${joint_base_name}"
-    joint_type="${joint_base_type}"
-    joint_origin_xyz="${origin_xyz}"
-    joint_origin_rpy="${origin_rpy}"
-    gazebo_preserve_fixed_joint="${gazebo_preserve_fixed_joint}"
-    />
-    <xacro:lss_arm_link
-    link_name="${prefix}${link_base_name}"
-    mesh="${link_base_mesh}"
-    collision="${collision}"
-    mu="${link_base_mu}"
-    />
+    <!--       -->
+    <!-- Macro -->
+    <!--       -->
+    <xacro:property name="default_origin_xyz" value="0 0 0"/>
+    <xacro:property name="default_origin_rpy" value="0 0 0"/>
+    <xacro:macro name="lss_arm" params="
+      base_parent
+      prefix
+      origin_xyz:=${default_origin_xyz}
+      origin_rpy:=${default_origin_rpy}
+      collision:=true
+      safety_limits:=false
+      safety_position_margin:=${pi/180}
+      safety_k_position:=100.0
+      safety_k_velocity:=40.0
+      ros2_control:=true
+      ros2_control_plugin:=fake
+      ros2_control_command_interface:=effort
+      gazebo_preserve_fixed_joint:=false
+    ">
 
     <!-- 0 -->
     <xacro:lss_arm_joint
-    parent="${prefix}${link_base_name}"
+    parent="${link_base_name}"
     child="${prefix}${link_0_name}"
     joint_name="${prefix}${joint0_name}"
     joint_type="${joint0_type}"

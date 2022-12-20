@@ -199,7 +199,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 215; 215; 215
-    Fixed Frame: lss_arm_base_link
+    Fixed Frame: world
     Frame Rate: 30
   Name: root
   Tools:

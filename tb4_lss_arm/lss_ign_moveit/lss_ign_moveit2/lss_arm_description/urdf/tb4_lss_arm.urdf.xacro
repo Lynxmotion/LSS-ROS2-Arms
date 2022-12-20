@@ -5,6 +5,7 @@
   <!--                   -->
   <!-- Imported elements -->
   <!--                   -->
+  <xacro:include filename="$(find lss_arm_description)/urdf/tb4_base.xacro"/>
   <xacro:include filename="$(find lss_arm_description)/urdf/lss_arm.xacro"/>
   <xacro:include filename="$(find lss_arm_description)/urdf/lss_gripper.xacro"/>
   <xacro:include filename="$(find lss_arm_description)/urdf/lss_arm_utils.xacro"/>
@@ -14,11 +15,11 @@
   <!--            -->
   <!-- Parameters -->
   <!--            -->
-  <!-- Flag to enable tb4 bracket -->
+  <!-- Flag to enable tb4 platform -->
   <xacro:arg name="tb4" default="true" />
 
   <!-- Name of the robot (mandatory) -->
-  <xacro:arg name="name" default="lss_arm"/>
+  <xacro:arg name="name" default="tb4_lss_arm"/>
 
   <!-- Prefix for all entities -->
   <xacro:arg name="prefix" default="lss_arm_"/>
@@ -26,6 +27,8 @@
   <!-- Flag to enable default gripper -->
   <xacro:arg name="gripper" default="true" />
 
+  <!-- Flag to enable collision geometry for TB4 platform -->
+  <xacro:arg name="collision_tb4" default="true"/>
   <!-- Flag to enable collision geometry for manipulator's arm -->
   <xacro:arg name="collision_arm" default="true"/>
   <!-- Flag to enable collision geometry for manipulator's gripper (hand and fingers) -->
@@ -78,10 +81,24 @@
     link_name="${world_name}"
     gazebo_preserve_fixed_joint="$(arg gazebo_preserve_fixed_joint)"
   />
+ 
+  <!-- TB4 Platform -->
+  <xacro:tb4_base
+    base_parent="${world_name}"
+    prefix="${prefix_arm}"
+    origin_xyz="${origin_xyz}"
+    origin_rpy="${origin_rpy}"
+    collision="$(arg collision_tb4)"
+    safety_limits="$(arg safety_limits)"
+    ros2_control="$(arg ros2_control)"
+    ros2_control_plugin="$(arg ros2_control_plugin)"
+    ros2_control_command_interface="$(arg ros2_control_command_interface)"
+    gazebo_preserve_fixed_joint="$(arg gazebo_preserve_fixed_joint)"
+  />
 
   <!-- Arm -->
   <xacro:lss_arm
-    base_parent="${world_name}"
+    base_parent="base_link"
     prefix="${prefix_arm}"
     origin_xyz="${origin_xyz}"
     origin_rpy="${origin_rpy}"

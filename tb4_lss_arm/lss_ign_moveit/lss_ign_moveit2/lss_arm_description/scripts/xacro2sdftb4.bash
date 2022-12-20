@@ -2,14 +2,14 @@
 # This script converts xacro (URDF variant) into SDF for `lss_arm_description` package
 
 SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" &>/dev/null && pwd)"
-XACRO_PATH="$(dirname "${SCRIPT_DIR}")/urdf/lss_arm.urdf.xacro"
-SDF_PATH="$(dirname "${SCRIPT_DIR}")/lss_arm/model.sdf"
-TMP_URDF_PATH="/tmp/lss_arm_tmp.urdf"
+XACRO_PATH="$(dirname "${SCRIPT_DIR}")/urdf/tb4_lss_arm.urdf.xacro"
+SDF_PATH="$(dirname "${SCRIPT_DIR}")/lss_arm/tb4_model.sdf"
+TMP_URDF_PATH="/tmp/tb4_lss_arm_tmp.urdf"
 
 # Arguments for xacro
 XACRO_ARGS=(
-    name:=lss_arm
-    tb4:=false
+    name:=tb4_lss_arm
+    tb4:=true
     gripper:=true
     collision_arm:=true
     collision_gripper:=true

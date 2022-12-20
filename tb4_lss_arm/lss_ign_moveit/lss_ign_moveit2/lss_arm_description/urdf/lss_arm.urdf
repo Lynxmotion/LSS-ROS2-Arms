@@ -7,41 +7,10 @@
 <robot name="lss_arm">
   <link name="world">
   </link>
-  <joint name="lss_arm_base_joint" type="fixed">
-    <parent link="world"/>
-    <child link="lss_arm_base_link"/>
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-  </joint>
-  <link name="lss_arm_base_link">
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://lss_arm_description/meshes/visual/lss_base.STL"/>
-      </geometry>
-      <material name="">
-        <color rgba="0.3 0.3 0.3 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://lss_arm_description/meshes/collision/lss_base.STL"/>
-      </geometry>
-    </collision>
-    <inertial>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <mass value="0.05"/>
-      <inertia ixx="4.17127E-06" ixy="-5.07076E-17" ixz="-8.99321E-15" iyy="8.84892E-06" iyz="5.22561E-14" izz="4.67905E-06"/>
-    </inertial>
-  </link>
-  <gazebo reference="lss_arm_base_link">
-    <mu1 value="0.3"/>
-    <mu2 value="0.3"/>
-  </gazebo>
   <joint name="lss_arm_joint0" type="fixed">
-    <parent link="lss_arm_base_link"/>
+    <parent link="world"/>
     <child link="lss_arm_link_0"/>
-    <origin rpy="0 0 0" xyz="0.063 0 0.2"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
   <link name="lss_arm_link_0">
     <visual>

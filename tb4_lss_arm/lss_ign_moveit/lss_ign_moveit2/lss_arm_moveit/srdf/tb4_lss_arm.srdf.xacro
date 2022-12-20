@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="$(arg name)">
+  <!--                   -->
+  <!-- Imported elements -->
+  <!--                   -->
+  <xacro:include filename="$(find lss_arm_moveit)/srdf/tb4_lss_arm.xacro" />
+  <xacro:include filename="$(find lss_arm_moveit)/srdf/lss_arm_gripper.xacro" />
+
+  <!--            -->
+  <!-- Parameters -->
+  <!--            -->
+  <!-- Name of the robot (mandatory) -->
+  <xacro:arg name="name" default="tb4_lss_arm"/>
+  <!-- Prefix for all entities -->
+  <xacro:arg name="prefix" default="lss_arm_"/>
+
+  <!--            -->
+  <!-- Properties -->
+  <!--            -->
+  <!-- Prefixes -->
+  <xacro:property name="prefix_arm" value="$(arg prefix)"/>
+  <xacro:property name="prefix_gripper" value="$(arg prefix)"/>
+
+
+  <!--       -->
+  <!-- Robot -->
+  <!--       -->
+  <xacro:tb4_lss_arm
+    prefix="${prefix_arm}"
+  />
+  <xacro:lss_arm_gripper
+    prefix="${prefix_gripper}"
+  />
+
+  <end_effector group="gripper" name="gripper" parent_group="lss_arm" parent_link="${prefix_arm}hand_tcp"/>
+
+  <disable_collisions link1="${prefix_arm}end_effector_l" link2="${prefix_arm}end_effector_r" reason="Default"/>
+  <disable_collisions link1="${prefix_arm}end_effector_l" link2="${prefix_arm}link_3" reason="Never"/>
+  <disable_collisions link1="${prefix_arm}end_effector_l" link2="${prefix_arm}link_4" reason="Adjacent"/>
+  <disable_collisions link1="${prefix_arm}end_effector_r" link2="${prefix_arm}link_3" reason="Never"/>
+  <disable_collisions link1="${prefix_arm}end_effector_r" link2="${prefix_arm}link_4" reason="Adjacent"/>
+</robot>
