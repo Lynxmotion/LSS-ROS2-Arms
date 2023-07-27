@@ -1,9 +1,0 @@
-initial_joint_positions:
-  lss_arm:
-    lss_arm_joint1: 0.0
-    lss_arm_joint2: 0.8
-    lss_arm_joint3: -0.4
-    lss_arm_joint4: -0.4
-  lss_gripper:
-    lss_arm_gripper_r: 0.4
-    lss_arm_gripper_l: -0.4

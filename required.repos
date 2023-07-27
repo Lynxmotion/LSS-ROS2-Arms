@@ -1,0 +1,5 @@
+repositories:
+  lss_hardware_interface:
+    type: git
+    url: https://github.com/Lynxmotion/LSS-ROS2-Control.git
+    version: main

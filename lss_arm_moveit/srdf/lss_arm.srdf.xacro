@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="$(arg name)">
+  <!--                   -->
+  <!-- Imported elements -->
+  <!--                   -->
+  <xacro:include filename="$(find lss_arm_moveit)/srdf/lss_arm.xacro" />
+  <xacro:include filename="$(find lss_arm_moveit)/srdf/lss_arm_gripper.xacro" />
+
+  <!--            -->
+  <!-- Parameters -->
+  <!--            -->
+  <!-- Name of the robot (mandatory) -->
+  <xacro:arg name="name" default="lss_arm"/>
+  <!-- Prefix for all entities -->
+  <xacro:arg name="prefix" default="$(arg name)_"/>
+
+
+  <!--            -->
+  <!-- Properties -->
+  <!--            -->
+  <!-- Prefixes -->
+  <xacro:property name="prefix_arm" value="$(arg prefix)"/>
+  <xacro:property name="prefix_gripper" value="$(arg prefix)"/>
+
+
+  <!--       -->
+  <!-- Robot -->
+  <!--       -->
+  <xacro:lss_arm
+    prefix="${prefix_arm}"
+  />
+  <xacro:lss_arm_gripper
+    prefix="${prefix_gripper}"
+  />
+  <group name="full_arm">
+    <group name="lss_arm"/>
+    <group name="gripper"/>
+  </group>
+  <group_state group="full_arm" name="home_close">
+    <joint name="lss_arm_joint_1" value="0.0"/>
+    <joint name="lss_arm_joint_2" value="2"/>
+    <joint name="lss_arm_joint_3" value="-0.9"/>
+    <joint name="lss_arm_joint_4" value="-1.7"/>
+    <joint name="lss_arm_joint_5" value="0.0"/>
+    <joint name="lss_arm_joint_6" value="0.0"/>
+  </group_state>
+  <group_state group="full_arm" name="home_open">
+    <joint name="lss_arm_joint_1" value="0.0"/>
+    <joint name="lss_arm_joint_2" value="2"/>
+    <joint name="lss_arm_joint_3" value="-0.9"/>
+    <joint name="lss_arm_joint_4" value="-1.7"/>
+    <joint name="lss_arm_joint_5" value="0.785"/>
+    <joint name="lss_arm_joint_6" value="-0.785"/>
+  </group_state>
+
+  <end_effector group="gripper" name="gripper" parent_group="lss_arm" parent_link="lss_arm_ee"/>
+
+  <disable_collisions link1="lss_arm_finger_l" link2="lss_arm_finger_r" reason="Default"/>
+  <disable_collisions link1="lss_arm_finger_l" link2="lss_arm_link_3" reason="Never"/>
+  <disable_collisions link1="lss_arm_finger_l" link2="lss_arm_link_4" reason="Adjacent"/>
+  <disable_collisions link1="lss_arm_finger_r" link2="lss_arm_link_3" reason="Never"/>
+  <disable_collisions link1="lss_arm_finger_r" link2="lss_arm_link_4" reason="Adjacent"/>
+
+</robot>

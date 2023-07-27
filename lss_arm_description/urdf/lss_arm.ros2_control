@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<!-- Macros that add ros2 control lss 4dof arm-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!--            -->
+  <!-- Properties -->
+  <!--            -->
+  <xacro:property name="default_initial_positions_file" value="$(find lss_arm_description)/config/initial_joint_positions.yaml"/>
+
+
+  <!--       -->
+  <!-- Macro -->
+  <!--       -->
+  <xacro:macro name="ros2_control_lss_arm" params="
+   name:=lss_arm_system
+   prefix:=lss_arm_
+   plugin:=fake
+   command_interface:=position
+   initial_positions_file:=${default_initial_positions_file}
+  ">
+    <xacro:property name="initial_positions" value="${load_yaml(initial_positions_file)['initial_joint_positions']['lss_arm']}"/>
+
+    <ros2_control name="${name}" type="system">
+      <hardware>
+        <xacro:if value="${plugin == 'fake'}">
+          <plugin>fake_components/GenericSystem</plugin>
+        </xacro:if>
+        <xacro:if value="${plugin == 'ign'}">
+          <plugin>ign_ros2_control/IgnitionSystem</plugin>
+        </xacro:if>
+        <xacro:if value="${plugin == 'real'}">
+          <plugin>lynxmotion/LssBus</plugin>
+          <param name="port">/dev/ttyUSB0</param>
+          <param name="baudrate">921600</param>
+          <param name="prefix">lss_arm_joint_</param>
+        </xacro:if>
+        <xacro:unless value="${plugin == 'fake' or plugin == 'ign' or plugin == 'real'}">
+          <plugin>${plugin}</plugin>
+        </xacro:unless>
+      </hardware>
+      <joint name="${prefix}joint_1">
+        <param name="initial_position">${initial_positions['lss_arm_joint_1']}</param>
+        <xacro:if value="${'position' in command_interface}">
+          <command_interface name="position">
+            <param name="min">-3.14</param>
+            <param name="max">3.14</param>
+            <param name="invert">true</param>
+          </command_interface>
+        </xacro:if>
+        <xacro:if value="${'velocity' in command_interface}">
+          <command_interface name="velocity"/>
+        </xacro:if>
+        <xacro:if value="${'effort' in command_interface}">
+          <command_interface name="effort"/>
+        </xacro:if>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+      <joint name="${prefix}joint_2">
+        <param name="initial_position">${initial_positions['lss_arm_joint_2']}</param>
+        <xacro:if value="${'position' in command_interface}">
+          <command_interface name="position">
+            <param name="min">-2.15</param>
+            <param name="max">2.15</param>
+          </command_interface>
+        </xacro:if>
+        <xacro:if value="${'velocity' in command_interface}">
+          <command_interface name="velocity"/>
+        </xacro:if>
+        <xacro:if value="${'effort' in command_interface}">
+          <command_interface name="effort"/>
+        </xacro:if>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+      <joint name="${prefix}joint_3">
+        <param name="initial_position">${initial_positions['lss_arm_joint_3']}</param>
+        <xacro:if value="${'position' in command_interface}">
+          <command_interface name="position">
+            <param name="min">-1.92</param>
+            <param name="max">1.57</param>
+          </command_interface>
+        </xacro:if>
+        <xacro:if value="${'velocity' in command_interface}">
+          <command_interface name="velocity"/>
+        </xacro:if>
+        <xacro:if value="${'effort' in command_interface}">
+          <command_interface name="effort"/>
+        </xacro:if>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+      <joint name="${prefix}joint_4">
+        <param name="initial_position">${initial_positions['lss_arm_joint_4']}</param>
+        <xacro:if value="${'position' in command_interface}">
+          <command_interface name="position">
+            <param name="min">-1.92</param>
+            <param name="max">1.92</param>
+          </command_interface>
+        </xacro:if>
+        <xacro:if value="${'velocity' in command_interface}">
+          <command_interface name="velocity"/>
+        </xacro:if>
+        <xacro:if value="${'effort' in command_interface}">
+          <command_interface name="effort"/>
+        </xacro:if>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+      <joint name="${prefix}joint_5">
+        <param name="initial_position">${initial_positions['lss_arm_joint_5']}</param>
+        <xacro:if value="${'position' in command_interface}">
+          <command_interface name="position">
+            <param name="min">0</param>
+            <param name="max">0.8</param>
+          </command_interface>
+        </xacro:if>
+        <xacro:if value="${'velocity' in command_interface}">
+          <command_interface name="velocity"/>
+        </xacro:if>
+        <xacro:if value="${'effort' in command_interface}">
+          <command_interface name="effort"/>
+        </xacro:if>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+    </ros2_control>
+  </xacro:macro>
+</robot>
+

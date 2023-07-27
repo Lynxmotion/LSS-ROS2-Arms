@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!--       -->
+  <!-- Macro -->
+  <!--       -->
+  <xacro:macro name="lss_arm" params="
+    prefix:=lss_arm_
+  ">
+    <group name="lss_arm">
+        <chain base_link="lss_arm_link_0" tip_link="lss_arm_ee"/>
+    </group>
+    
+    <group_state group="lss_arm" name="home" >
+        <joint name="lss_arm_joint_1" value="0.0"/>
+        <joint name="lss_arm_joint_2" value="1.7"/>
+        <joint name="lss_arm_joint_3" value="-0.7"/>
+        <joint name="lss_arm_joint_4" value="-1.7"/>
+    </group_state>
+    
+    <disable_collisions link1="lss_arm_link_0" link2="lss_arm_link_1" reason="Adjacent"/>
+    <disable_collisions link1="lss_arm_link_0" link2="lss_arm_link_2" reason="Never"/>
+    <disable_collisions link1="lss_arm_link_1" link2="lss_arm_link_2" reason="Adjacent"/>
+    <disable_collisions link1="lss_arm_link_2" link2="lss_arm_link_3" reason="Adjacent"/>
+    <disable_collisions link1="lss_arm_link_3" link2="lss_arm_link_4" reason="Adjacent"/>
+  </xacro:macro>
+</robot>

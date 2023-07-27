@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>lss_ign_moveit_example</name>
+  <version>1.0.0</version>
+  <description>C++ example of using MoveIt 2 for planning motions that are executed inside Ignition Gazebo simulation environment</description>
+  <author>Geraldine Barreto</author>
+  <maintainer email="gbarreto@robotshop.com"></maintainer>
+  <license>Apache 2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>geometry_msgs</depend>
+  <depend>moveit_ros_planning_interface</depend>
+
+  <exec_depend>ign_ros2_control</exec_depend>
+  <exec_depend>moveit</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>ros_ign_bridge</exec_depend>
+  <exec_depend>ros_ign_gazebo</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+
+  <exec_depend>lss_arm_description</exec_depend>
+  <exec_depend>lss_arm_moveit</exec_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

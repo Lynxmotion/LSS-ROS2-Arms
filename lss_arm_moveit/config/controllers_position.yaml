@@ -1,0 +1,59 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 30 # Hz
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+      publish_rate: 30
+
+    effort_controller:
+      type: forward_command_controller/ForwardCommandController
+
+    arm_trajectory_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    gripper_action_controller:
+      type: position_controllers/GripperActionController
+
+effort_controller:
+  ros__parameters:
+    joints:
+      - lss_arm_joint_1
+      - lss_arm_joint_2
+      - lss_arm_joint_3
+      - lss_arm_joint_4
+      - lss_arm_joint_5
+    interface_name: effort
+
+arm_trajectory_controller:
+  ros__parameters:
+    joints:
+      - lss_arm_joint_1
+      - lss_arm_joint_2
+      - lss_arm_joint_3
+      - lss_arm_joint_4
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+
+gripper_action_controller:
+  ros__parameters:
+    joint: lss_arm_joint_5
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    action_monitor_rate: 20.0
+    # allow_stalling: true
+    goal_tolerance: 0.1
+    max_effort: 0.7
+    stall_velocity_threshold: 0.001
+    stall_timeout: 1.0
+
+lss_realtime:
+  ros__parameters:
+    update_rate: 30  # Hz
+    diagnostic_period: 1

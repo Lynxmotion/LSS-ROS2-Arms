@@ -1,0 +1,11 @@
+<sdf version="1.6">
+  <world name="empty">
+
+    <gui>
+      <camera name="user_camera">
+        <pose>-7.35 -3.59 39.73 0 1.417 0.124</pose>
+      </camera>
+    </gui>
+    
+  </world>
+</sdf>
