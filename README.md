@@ -66,6 +66,16 @@ The lss_arm_description package contains the URDF description & SDF model of the
 
 It contains scripts that convert xacro into the required URDF and SDF files.
 
+To generathe the SDF file used for the simulation run:
+```
+bash src/lss_arm_description/scripts/xacro2sdf.bash
+```
+
+Similarly, if you want to check the generated URDF file you can run:
+```
+bash src/lss_arm_description/scripts/xacro2urdf.bash
+```
+
 The robot model can be viewed with:
 
 **View Model in Rviz**
@@ -85,6 +95,11 @@ ros2 launch lss_arm_description view_ign.launch.py
 The lss_arm_moveit package contains all the configuration and launch files for using the LSS Arm with the MoveIt2 Motion Planning Framework.
 
 It offers different controller plugins for the manipulator ('fake', 'ign' and 'real')
+
+If you want to check the generated SRDF file you can run:
+```
+bash src/lss_arm_moveit/scripts/xacro2srdf.bash
+```
 
 The following launch files are available:
 
