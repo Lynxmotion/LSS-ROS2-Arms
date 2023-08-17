@@ -1,0 +1,10 @@
+*/log
+*/build
+*/install
+*/*/LSS-ROS2-Control
+*/*/.vscode
+lss_arm_description/models/lss_arm_4dof/model.sdf
+lss_arm_description/models/lss_arm_5dof/model.sdf
+lss_arm_moveit/srdf/lss_arm_4dof.sdrf
+lss_arm_moveit/srdf/lss_arm_5dof.sdrf
+lss_arm_description/urdf/lss_arm.urdf
