@@ -4,6 +4,7 @@
 from os import path
 from typing import List
 
+import yaml
 from ament_index_python.packages import get_package_share_directory
 from launch_ros.substitutions import FindPackageShare
 
@@ -20,7 +21,8 @@ def generate_launch_description() -> LaunchDescription:
 
     # Get substitution for all arguments
     world_type = LaunchConfiguration("world_type")
-    robot_type = LaunchConfiguration("robot_type")
+    name = LaunchConfiguration("name")
+    dof = LaunchConfiguration("dof")
     rviz_config = LaunchConfiguration("rviz_config")
     use_sim_time = LaunchConfiguration("use_sim_time")
     ign_verbosity = LaunchConfiguration("ign_verbosity")
@@ -36,7 +38,7 @@ def generate_launch_description() -> LaunchDescription:
     declared_arguments.append(
         DeclareLaunchArgument(
             "__robot_launch_basename",
-            default_value=["robot_", robot_type, ".launch.py"],
+            default_value=["robot_", name, ".launch.py"],
         ),
     )
 
@@ -73,6 +75,7 @@ def generate_launch_description() -> LaunchDescription:
                 )
             ),
             launch_arguments=[
+                ("dof", dof),
                 ("use_sim_time", use_sim_time),
                 ("ign_verbosity", ign_verbosity),
                 ("log_level", log_level),
@@ -83,16 +86,16 @@ def generate_launch_description() -> LaunchDescription:
             PythonLaunchDescriptionSource(
                 PathJoinSubstitution(
                     [
-                        FindPackageShare([robot_type, "_moveit"]),
+                        FindPackageShare(["lss_arm_moveit"]),
                         "launch",
                         "move_arm.launch.py",
                     ]
                 )
             ),
             launch_arguments=[
+                ("dof", dof),
                 ("ros2_control_plugin", "ign"),
-                ("ros2_control_command_interface", "position"),
-                ("collision_arm", "true"),
+                ("collision", "true"),
                 ("rviz_config", rviz_config),
                 ("use_sim_time", use_sim_time),
                 ("log_level", log_level),
@@ -102,6 +105,26 @@ def generate_launch_description() -> LaunchDescription:
 
     return LaunchDescription(declared_arguments + launch_descriptions)
 
+def load_yaml(package_name: str, file_path: str):
+    """
+    Load yaml configuration based on package name and file path relative to its share.
+    """
+
+    package_path = get_package_share_directory(package_name)
+    absolute_file_path = path.join(package_path, file_path)
+    return parse_yaml(absolute_file_path)
+
+
+def parse_yaml(absolute_file_path: str):
+    """
+    Parse yaml from file, given its absolute file path.
+    """
+
+    try:
+        with open(absolute_file_path, "r") as file:
+            return yaml.safe_load(file)
+    except EnvironmentError:
+        return None
 
 def generate_declared_arguments() -> List[DeclareLaunchArgument]:
     """
@@ -115,11 +138,18 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
             default_value="default",
             description="Name of the world configuration to load.",
         ),
-        # Robot selection
+        # Naming of the robot
         DeclareLaunchArgument(
-            "robot_type",
+            "name",
             default_value="lss_arm",
-            description="Name of the robot type to use.",
+            description="Name of the robot.",
+        ),
+        # Gripper
+        DeclareLaunchArgument(
+            "dof",
+            default_value='4',
+            choices=['4','5'],
+            description="Parameter to select gripper model."
         ),
         # Miscellaneous
         DeclareLaunchArgument(

@@ -1,5 +1,5 @@
 #!/usr/bin/env -S ros2 launch
-"""Visualisation of SDF model for LSS 4DoF Arm in Ignition Gazebo. Note that the generated model://lss_arm/model.sdf descriptor is used."""
+"""Visualisation of SDF model for LSS 4DoF/5DoF Arm in Ignition Gazebo. Note that the generated model://lss_arm/model.sdf descriptor is required."""
 
 from os import path
 from typing import List
@@ -12,6 +12,7 @@ from launch.substitutions import (
     FindExecutable,
     LaunchConfiguration,
     PathJoinSubstitution,
+    PythonExpression
 )
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
@@ -27,10 +28,12 @@ def generate_launch_description() -> LaunchDescription:
     description_package = LaunchConfiguration("description_package")
     description_filepath = LaunchConfiguration("description_filepath")
     world = LaunchConfiguration("world")
-    model = LaunchConfiguration("model")
+    dof = LaunchConfiguration("dof")
     use_sim_time = LaunchConfiguration("use_sim_time")
     ign_verbosity = LaunchConfiguration("ign_verbosity")
     log_level = LaunchConfiguration("log_level")
+
+    model = PythonExpression(["'lss_arm_", dof, "dof'"])
 
     # URDF
     _robot_description_xml = Command(
@@ -111,20 +114,18 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
             default_value=path.join("urdf", "lss_arm.urdf.xacro"),
             description="Path to xacro or URDF description of the robot, relative to share of `description_package`.",
         ),
-        # World for Ignition Gazebo
+        # World and model for Ignition Gazebo
         DeclareLaunchArgument(
             "world",
-            default_value=path.join(
-                get_package_share_directory("lss_arm_description"),
-                "worlds",
-                "empty.sdf",
-            ),
+            default_value="default.sdf",
             description="Name or filepath of world to load.",
         ),
+        # Gripper
         DeclareLaunchArgument(
-            "model",
-            default_value="lss_arm",
-            description="Name of the robot.",
+            "dof",
+            default_value='4',
+            choices=['4','5'],
+            description="Parameter to select gripper model."
         ),
         # Miscellaneous
         DeclareLaunchArgument(

@@ -4,6 +4,7 @@ project(lss_arm_description)
 # Find dependencies
 find_package(ament_cmake REQUIRED)
 
+
 # Setup environment hooks that automatically prepend IGN_GAZEBO_RESOURCE_PATH and SDF_PATH when sourcing local_setup.<ext>
 ament_environment_hooks(
   "cmake/environment_hooks/ign_gazebo_resource_path.bash"
@@ -11,7 +12,7 @@ ament_environment_hooks(
 )
 
 # Install directories
-install(DIRECTORY config launch lss_arm lss_arm/meshes rviz urdf worlds DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY config launch models models/lss_arm_5dof/meshes rviz urdf DESTINATION share/${PROJECT_NAME})
 
 # Setup the project
 ament_package()

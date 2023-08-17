@@ -1,5 +1,5 @@
 /// Example that uses MoveIt 2 to follow a target inside Ignition Gazebo
-/// Because the Arm only has 4 DOF the goal orientation is adjusted so it
+/// Because the Arms only have 4/5 DOF the goal orientation is adjusted so it
 /// is always parallel to the base of the robot
 
 #include <geometry_msgs/msg/pose_stamped.hpp>
@@ -52,14 +52,8 @@ void MoveItFollowTarget::target_pose_callback(const geometry_msgs::msg::PoseStam
 
   RCLCPP_INFO(this->get_logger(), "Target pose has changed. Planning and executing...");
 
-  // Define the base's center position
-  double center_x = 0.0;
-  double center_y = 0.0;
-
   // Calculate the yaw angle based on the target position and the base
-  double dy = msg->pose.position.y - center_y;
-  double dx = msg->pose.position.x - center_x;
-  double yaw = atan2(dy, dx);
+  double yaw = atan2(msg->pose.position.y, msg->pose.position.x);
 
   // Create a quaternion from the Euler angles
   tf2::Quaternion q;

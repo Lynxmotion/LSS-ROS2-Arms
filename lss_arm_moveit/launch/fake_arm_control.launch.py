@@ -18,6 +18,7 @@ def generate_launch_description() -> LaunchDescription:
     declared_arguments = generate_declared_arguments()
 
     # Get substitution for all arguments
+    dof = LaunchConfiguration("dof")
     rviz_config = LaunchConfiguration("rviz_config")
     use_sim_time = LaunchConfiguration("use_sim_time")
     log_level = LaunchConfiguration("log_level")
@@ -36,8 +37,8 @@ def generate_launch_description() -> LaunchDescription:
                 )
             ),
             launch_arguments=[
+                ("dof", dof),
                 ("ros2_control_plugin", "fake"),
-                ("ros2_control_command_interface", "position"),
                 ("rviz_config", rviz_config),
                 ("use_sim_time", use_sim_time),
                 ("log_level", log_level),
@@ -54,6 +55,13 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
     """
 
     return [
+        # Gripper
+        DeclareLaunchArgument(
+            "dof",
+            default_value='4',
+            choices=['4','5'],
+            description="Parameter to select gripper model."
+        ),
         # Miscellaneous
         DeclareLaunchArgument(
             "rviz_config",
@@ -73,5 +81,5 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
             "log_level",
             default_value="warn",
             description="The level of logging that is applied to all ROS 2 nodes launched by this script.",
-        ),
+        )
     ]

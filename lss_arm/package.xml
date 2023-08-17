@@ -2,7 +2,7 @@
 <package format="3">
   <name>lss_arm</name>
   <version>1.0.0</version>
-  <description>Metapackage for LSS 4DoF Arm</description>
+  <description>Metapackage for LSS 4DoF/5DoF Arms</description>
   <author>Geraldine Barreto</author>
   <maintainer email="gbarreto@robotshop.com"/>
   <license>Apache 2.0</license>

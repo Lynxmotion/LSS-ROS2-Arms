@@ -13,7 +13,7 @@
   <!--       -->
   <xacro:macro name="DarkGreyMaterial">
     <material name="DarkGrey">
-      <color rgba="0.3 0.3 0.3 1.0"/>
+      <color rgba="0.75294 0.75294 0.75294 1.0"/>
       <diffuse>${3/255} ${3/255} ${3/255} 1</diffuse>
       <specular>0 0 0 1</specular>
       <emissive>0 0 0 1</emissive>
@@ -211,14 +211,14 @@
        
   <!-- Macro -->
   <!--       -->
-  <xacro:macro name="tb4_base_virtual_link" params="
+  <xacro:macro name="adapter_bracket_base_virtual_link" params="
     parent
     link_name
     joint_origin_xyz
     joint_origin_rpy
     gazebo_preserve_fixed_joint:=false
   ">
-    <xacro:tb4_dummy_link
+    <xacro:adapter_bracket_dummy_link
       link_name="${parent}"
       gazebo_preserve_fixed_joint="${gazebo_preserve_fixed_joint}"
     />
@@ -230,7 +230,7 @@
     </joint>
   </xacro:macro>
 
-  <xacro:macro name="tb4_dummy_link" params="
+  <xacro:macro name="adapter_bracket_dummy_link" params="
     link_name
     gazebo_preserve_fixed_joint:=false
   ">

@@ -8,7 +8,7 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution, PythonExpression
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
@@ -20,7 +20,7 @@ def generate_launch_description() -> LaunchDescription:
 
     # Get substitution for all arguments
     world = LaunchConfiguration("world")
-    model = LaunchConfiguration("model")
+    dof = LaunchConfiguration("dof")
     rviz_config = LaunchConfiguration("rviz_config")
     use_sim_time = LaunchConfiguration("use_sim_time")
     ign_verbosity = LaunchConfiguration("ign_verbosity")
@@ -53,15 +53,17 @@ def generate_launch_description() -> LaunchDescription:
                 )
             ),
             launch_arguments=[
+                ("dof", dof),
                 ("ros2_control_plugin", "ign"),
-                ("ros2_control_command_interface", "position"),
-                ("collision_arm", "true"),
+                ("collision", "true"),
                 ("rviz_config", rviz_config),
                 ("use_sim_time", use_sim_time),
                 ("log_level", log_level),
             ],
         ),
     ]
+
+    model = PythonExpression(["'lss_arm_", dof, "dof'"])
 
     # List of nodes to be launched
     nodes = [
@@ -103,10 +105,12 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
             default_value="default.sdf",
             description="Name or filepath of world to load.",
         ),
+        # Gripper
         DeclareLaunchArgument(
-            "model",
-            default_value="lss_arm",
-            description="Name or filepath of model to load.",
+            "dof",
+            default_value='4',
+            choices=['4','5'],
+            description="Parameter to select gripper model."
         ),
         # Miscellaneous
         DeclareLaunchArgument(

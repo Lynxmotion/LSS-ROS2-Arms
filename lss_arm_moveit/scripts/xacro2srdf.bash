@@ -3,11 +3,29 @@
 
 SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" &>/dev/null && pwd)"
 XACRO_PATH="$(dirname "${SCRIPT_DIR}")/srdf/lss_arm.srdf.xacro"
-SRDF_PATH="$(dirname "${SCRIPT_DIR}")/srdf/lss_arm.srdf"
+
+# Default parameters
+DOF=4
+
+# Parse arguments
+while getopts "d:" arg; do
+  case ${arg} in
+     d) case ${OPTARG} in
+          4|5) DOF="${OPTARG}" ;;
+          *) echo "Invalid DOF: ${OPTARG}. DOF can only be 4 or 5." >&2
+             exit 1 ;;
+        esac ;;
+     *) echo "Invalid option: -${OPTARG}" >&2
+        exit 1;;
+  esac
+done
+
+SRDF_PATH="$(dirname "${SCRIPT_DIR}")/srdf/lss_arm_${DOF}dof.srdf"
 
 # Arguments for xacro
 XACRO_ARGS=(
     name:=lss_arm
+    dof:="${DOF}"
 )
 
 # Remove old SRDF file

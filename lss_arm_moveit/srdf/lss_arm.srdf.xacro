@@ -8,7 +8,7 @@
   <!-- Imported elements -->
   <!--                   -->
   <xacro:include filename="$(find lss_arm_moveit)/srdf/lss_arm.xacro" />
-  <xacro:include filename="$(find lss_arm_moveit)/srdf/lss_arm_gripper.xacro" />
+  <xacro:include filename="$(find lss_arm_moveit)/srdf/lss_gripper.xacro" />
 
   <!--            -->
   <!-- Parameters -->
@@ -17,52 +17,45 @@
   <xacro:arg name="name" default="lss_arm"/>
   <!-- Prefix for all entities -->
   <xacro:arg name="prefix" default="$(arg name)_"/>
-
+  <!-- Parameter to select gripper model-->
+  <xacro:arg name="dof" default="4"/>
 
   <!--            -->
   <!-- Properties -->
   <!--            -->
-  <!-- Prefixes -->
-  <xacro:property name="prefix_arm" value="$(arg prefix)"/>
-  <xacro:property name="prefix_gripper" value="$(arg prefix)"/>
-
+  <!--  Prefixes  -->
+  <xacro:property name="prefix" value="$(arg prefix)"/>
 
   <!--       -->
   <!-- Robot -->
   <!--       -->
-  <xacro:lss_arm
-    prefix="${prefix_arm}"
-  />
-  <xacro:lss_arm_gripper
-    prefix="${prefix_gripper}"
-  />
-  <group name="full_arm">
-    <group name="lss_arm"/>
-    <group name="gripper"/>
-  </group>
-  <group_state group="full_arm" name="home_close">
-    <joint name="lss_arm_joint_1" value="0.0"/>
-    <joint name="lss_arm_joint_2" value="2"/>
-    <joint name="lss_arm_joint_3" value="-0.9"/>
-    <joint name="lss_arm_joint_4" value="-1.7"/>
-    <joint name="lss_arm_joint_5" value="0.0"/>
-    <joint name="lss_arm_joint_6" value="0.0"/>
-  </group_state>
-  <group_state group="full_arm" name="home_open">
-    <joint name="lss_arm_joint_1" value="0.0"/>
-    <joint name="lss_arm_joint_2" value="2"/>
-    <joint name="lss_arm_joint_3" value="-0.9"/>
-    <joint name="lss_arm_joint_4" value="-1.7"/>
-    <joint name="lss_arm_joint_5" value="0.785"/>
-    <joint name="lss_arm_joint_6" value="-0.785"/>
-  </group_state>
+  <xacro:if value="${'$(arg dof)' == '4'}">
+    <xacro:lss_arm_4dof
+      prefix="${prefix}"
+    />
+    <xacro:gripper_4dof
+      prefix="${prefix}"
+    />
+    <disable_collisions link1="${prefix}finger_r" link2="${prefix}link_3" reason="Never"/>
+    <disable_collisions link1="${prefix}finger_r" link2="${prefix}link_4" reason="Adjacent"/>
+    <disable_collisions link1="${prefix}finger_l" link2="${prefix}link_3" reason="Never"/>
+    <disable_collisions link1="${prefix}finger_l" link2="${prefix}link_4" reason="Adjacent"/>
+  </xacro:if>
 
-  <end_effector group="gripper" name="gripper" parent_group="lss_arm" parent_link="lss_arm_ee"/>
+  <xacro:if value="${'$(arg dof)' == '5'}">
+    <xacro:lss_arm_5dof
+      prefix="${prefix}"
+    />
+    <xacro:gripper_5dof
+      prefix="${prefix}"
+    />
+    <disable_collisions link1="${prefix}finger_r" link2="${prefix}link_4" reason="Never"/>
+    <disable_collisions link1="${prefix}finger_r" link2="${prefix}link_5" reason="Adjacent"/>
+    <disable_collisions link1="${prefix}finger_l" link2="${prefix}link_4" reason="Never"/>
+    <disable_collisions link1="${prefix}finger_l" link2="${prefix}link_5" reason="Adjacent"/>
+  </xacro:if>
 
-  <disable_collisions link1="lss_arm_finger_l" link2="lss_arm_finger_r" reason="Default"/>
-  <disable_collisions link1="lss_arm_finger_l" link2="lss_arm_link_3" reason="Never"/>
-  <disable_collisions link1="lss_arm_finger_l" link2="lss_arm_link_4" reason="Adjacent"/>
-  <disable_collisions link1="lss_arm_finger_r" link2="lss_arm_link_3" reason="Never"/>
-  <disable_collisions link1="lss_arm_finger_r" link2="lss_arm_link_4" reason="Adjacent"/>
+  <end_effector group="gripper" name="gripper" parent_group="lss_arm" parent_link="${prefix}ee"/>
 
+  <disable_collisions link1="${prefix}finger_r" link2="${prefix}finger_l" reason="Default"/>
 </robot>

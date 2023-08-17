@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Xacro for LSS 4DoF Arm -->
+<!-- Xacro for LSS Arms -->
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <!--                   -->
@@ -59,24 +59,6 @@
   <xacro:property name="link_3_name" value="link_3"/>
   <xacro:property name="link_3_mu" value="0.3"/>
 
-  <xacro:property name="joint_4_name" value="joint_4"/>
-  <xacro:property name="joint_4_type" value="revolute"/>
-  <xacro:property name="joint_4_origin_xyz" value="0.154274210199929 0.0532325846374996 0"/>
-  <xacro:property name="joint_4_origin_rpy" value="0 0 0.332259786519651"/>
-  <xacro:property name="joint_4_axis_xyz" value="0 0 1"/>
-  <xacro:property name="joint_4_lower_limit" value="${-110*pi/180}"/>
-  <xacro:property name="joint_4_upper_limit" value="${110*pi/180}"/>
-  <xacro:property name="joint_4_velocity_limit" value="6.283"/>
-  <xacro:property name="joint_4_torque_limit" value="6.8439285"/>
-  <xacro:property name="joint_4_damping" value="0.01"/>
-  <xacro:property name="joint_4_friction" value="3.48"/>
-  <xacro:property name="link_4_name" value="link_4"/>
-  <xacro:property name="link_4_mu" value="0.3"/>
-
-  <xacro:property name="gripper_name" value="joint_gripper"/>
-  <xacro:property name="gripper_origin_xyz" value="0 0 0"/>
-  <xacro:property name="gripper_origin_rpy" value="0 0 0"/>
-
     <!--       -->
     <!-- Macro -->
     <!--       -->
@@ -94,7 +76,6 @@
       safety_k_velocity:=100.0
       ros2_control:=true
       ros2_control_plugin:=fake
-      ros2_control_command_interface:=position
       gazebo_preserve_fixed_joint:=false
     ">
 
@@ -199,38 +180,11 @@
     mu="${link_3_mu}"
     />
 
-    <!-- 4 -->
-    <xacro:lss_arm_joint_
-    parent="${prefix}${link_3_name}"
-    child="${prefix}${link_4_name}"
-    joint_name="${prefix}${joint_4_name}"
-    joint_type="${joint_4_type}"
-    joint_origin_xyz="${joint_4_origin_xyz}"
-    joint_origin_rpy="${joint_4_origin_rpy}"
-    joint_axis_xyz="${joint_4_axis_xyz}"
-    joint_lower_limit="${joint_4_lower_limit}"
-    joint_upper_limit="${joint_4_upper_limit}"
-    joint_velocity_limit="${joint_4_velocity_limit}"
-    joint_torque_limit="${joint_4_torque_limit}"
-    joint_damping="${joint_4_damping}"
-    joint_friction="${joint_4_friction}"
-    safety_limits="${safety_limits}"
-    safety_position_margin="${safety_position_margin}"
-    safety_k_position="${safety_k_position}"
-    safety_k_velocity="${safety_k_velocity}"
-    gazebo_preserve_fixed_joint="${gazebo_preserve_fixed_joint}"
-    />
-    <xacro:lss_arm_link
-    link_name="${prefix}${link_4_name}"
-    mesh="${link_4_mesh}"
-    collision="${collision}"
-    mu="${link_4_mu}"
-    />
-
-    <!-- ROS 2 control -->
+     <!-- ROS 2 control -->
     <xacro:if value="${ros2_control}">
-      <xacro:ros2_control_lss_arm prefix="${prefix}" plugin="${ros2_control_plugin}" command_interface="${ros2_control_command_interface}"/>
+        <xacro:ros2_control_lss_arm prefix="${prefix}" plugin="${ros2_control_plugin}" command_interface="position"/>
     </xacro:if>
+
   </xacro:macro>
 
 </robot>

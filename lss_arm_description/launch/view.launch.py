@@ -1,5 +1,5 @@
 #!/usr/bin/env -S ros2 launch
-"""Visualisation of URDF model for LSS 4DoF Arm in RViz2"""
+"""Visualisation of URDF model for LSS 4DoF/5DoF Arms in RViz2"""
 
 from os import path
 from typing import List
@@ -27,18 +27,14 @@ def generate_launch_description() -> LaunchDescription:
     description_filepath = LaunchConfiguration("description_filepath")
     name = LaunchConfiguration("name")
     prefix = LaunchConfiguration("prefix")
-    gripper = LaunchConfiguration("gripper")
-    collision_arm = LaunchConfiguration("collision_arm")
-    collision_gripper = LaunchConfiguration("collision_gripper")
+    dof = LaunchConfiguration("dof")
+    collision = LaunchConfiguration("collision")
     safety_limits = LaunchConfiguration("safety_limits")
     safety_position_margin = LaunchConfiguration("safety_position_margin")
     safety_k_position = LaunchConfiguration("safety_k_position")
     safety_k_velocity = LaunchConfiguration("safety_k_velocity")
     ros2_control = LaunchConfiguration("ros2_control")
     ros2_control_plugin = LaunchConfiguration("ros2_control_plugin")
-    ros2_control_command_interface = LaunchConfiguration(
-        "ros2_control_command_interface"
-    )
     gazebo_preserve_fixed_joint = LaunchConfiguration("gazebo_preserve_fixed_joint")
     rviz_config = LaunchConfiguration("rviz_config")
     use_sim_time = LaunchConfiguration("use_sim_time")
@@ -59,14 +55,11 @@ def generate_launch_description() -> LaunchDescription:
             "prefix:=",
             prefix,
             " ",
-            "gripper:=",
-            gripper,
+            "dof:=",
+            dof,
             " ",
-            "collision_arm:=",
-            collision_arm,
-            " ",
-            "collision_gripper:=",
-            collision_gripper,
+            "collision:=",
+            collision,
             " ",
             "safety_limits:=",
             safety_limits,
@@ -85,9 +78,6 @@ def generate_launch_description() -> LaunchDescription:
             " ",
             "ros2_control_plugin:=",
             ros2_control_plugin,
-            " ",
-            "ros2_control_command_interface:=",
-            ros2_control_command_interface,
             " ",
             "gazebo_preserve_fixed_joint:=",
             gazebo_preserve_fixed_joint,
@@ -162,20 +152,16 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
         ),
         # Gripper
         DeclareLaunchArgument(
-            "gripper",
-            default_value="true",
-            description="Flag to enable default gripper.",
+            "dof",
+            default_value='4',
+            choices=['4','5'],
+            description="Parameter to select gripper model."
         ),
         # Collision geometry
         DeclareLaunchArgument(
-            "collision_arm",
+            "collision",
             default_value="true",
             description="Flag to enable collision geometry for manipulator's arm.",
-        ),
-        DeclareLaunchArgument(
-            "collision_gripper",
-            default_value="true",
-            description="Flag to enable collision geometry for manipulator's gripper.",
         ),
         # Safety controller
         DeclareLaunchArgument(
@@ -208,11 +194,6 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
             "ros2_control_plugin",
             default_value="ign",
             description="The ros2_control plugin that should be loaded for the manipulator ('fake', 'ign', 'real' or custom).",
-        ),
-        DeclareLaunchArgument(
-            "ros2_control_command_interface",
-            default_value="position",
-            description="The output control command interface provided by ros2_control ('position', 'velocity', 'effort' or certain combinations 'position,velocity').",
         ),
         # Gazebo
         DeclareLaunchArgument(

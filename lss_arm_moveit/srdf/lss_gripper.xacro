@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!--       -->
+  <!-- Macro -->
+  <!--       -->
+  <xacro:macro name="gripper_4dof" params="
+    prefix:=lss_arm_
+  ">
+      <group name="gripper">
+          <link name="${prefix}finger_l"/>
+          <link name="${prefix}finger_r"/>
+          <joint name="${prefix}joint_5" />
+          <passive_joint name="${prefix}joint_6" />
+      </group>
+      <group_state group="gripper" name="open">
+          <joint name="${prefix}joint_5" value="0.785"/>
+          <joint name="${prefix}joint_6" value="-0.785"/>
+      </group_state>
+      <group_state group="gripper" name="close">
+          <joint name="${prefix}joint_5" value="0.0"/>
+          <joint name="${prefix}joint_6" value="0.0"/>
+      </group_state>
+  </xacro:macro>
+
+  <xacro:macro name="gripper_5dof" params="
+    prefix:=lss_arm_
+  ">
+    <group name="gripper">
+        <link name="${prefix}finger_l"/>
+        <link name="${prefix}finger_r"/>
+        <joint name="${prefix}joint_5" />
+        <passive_joint name="${prefix}joint_7" />
+    </group>
+    <group_state group="gripper" name="open">
+        <joint name="${prefix}joint_5" value="0.785"/>
+        <joint name="${prefix}joint_7" value="-0.785"/>
+    </group_state>
+    <group_state group="gripper" name="close">
+        <joint name="${prefix}joint_5" value="0.0"/>
+        <joint name="${prefix}joint_7" value="0.0"/>
+    </group_state>
+  </xacro:macro>
+</robot>

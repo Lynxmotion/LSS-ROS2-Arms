@@ -5,7 +5,6 @@ from os import path
 from typing import List
 
 import yaml
-from launch.actions import TimerAction
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
@@ -15,7 +14,7 @@ from launch.substitutions import (
     FindExecutable,
     LaunchConfiguration,
     PathJoinSubstitution,
-    PythonExpression,
+    PythonExpression
 )
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
@@ -32,20 +31,15 @@ def generate_launch_description():
     moveit_config_package = "lss_arm_moveit"
     name = LaunchConfiguration("name")
     prefix = LaunchConfiguration("prefix")
-    gripper = LaunchConfiguration("gripper")
-    collision_arm = LaunchConfiguration("collision_arm")
-    collision_gripper = LaunchConfiguration("collision_gripper")
+    dof = LaunchConfiguration("dof")
+    collision = LaunchConfiguration("collision")
     safety_limits = LaunchConfiguration("safety_limits")
     safety_position_margin = LaunchConfiguration("safety_position_margin")
     safety_k_position = LaunchConfiguration("safety_k_position")
     safety_k_velocity = LaunchConfiguration("safety_k_velocity")
     ros2_control = LaunchConfiguration("ros2_control")
     ros2_control_plugin = LaunchConfiguration("ros2_control_plugin")
-    ros2_control_command_interface = LaunchConfiguration(
-        "ros2_control_command_interface"
-    )
     gazebo_preserve_fixed_joint = LaunchConfiguration("gazebo_preserve_fixed_joint")
-    # enable_servo = LaunchConfiguration("enable_servo")
     enable_rviz = LaunchConfiguration("enable_rviz")
     rviz_config = LaunchConfiguration("rviz_config")
     use_sim_time = LaunchConfiguration("use_sim_time")
@@ -66,14 +60,11 @@ def generate_launch_description():
             "prefix:=",
             prefix,
             " ",
-            "gripper:=",
-            gripper,
+            "dof:=",
+            dof,
             " ",
-            "collision_arm:=",
-            collision_arm,
-            " ",
-            "collision_gripper:=",
-            collision_gripper,
+            "collision:=",
+            collision,
             " ",
             "safety_limits:=",
             safety_limits,
@@ -92,9 +83,6 @@ def generate_launch_description():
             " ",
             "ros2_control_plugin:=",
             ros2_control_plugin,
-            " ",
-            "ros2_control_command_interface:=",
-            ros2_control_command_interface,
             " ",
             "gazebo_preserve_fixed_joint:=",
             gazebo_preserve_fixed_joint,
@@ -120,6 +108,9 @@ def generate_launch_description():
             " ",
             "prefix:=",
             prefix,
+            " ",
+            "dof:=",
+            dof,
         ]
     )
     robot_description_semantic = {
@@ -138,14 +129,6 @@ def generate_launch_description():
         )
     }
 
-    # # Servo
-    # servo_params = {
-    #     "moveit_servo": load_yaml(
-    #         moveit_config_package, path.join("config", "servo.yaml")
-    #     )
-    # }
-    # servo_params["moveit_servo"].update({"use_gazebo": use_sim_time})
-
     # Planning pipeline
     planning_pipeline = {
         "planning_pipelines": ["ompl"],
@@ -153,7 +136,6 @@ def generate_launch_description():
         "ompl": {
             "planning_plugin": "ompl_interface/OMPLPlanner",
             "request_adapters": "default_planner_request_adapters/AddTimeOptimalParameterization default_planner_request_adapters/ResolveConstraintFrames default_planner_request_adapters/FixWorkspaceBounds default_planner_request_adapters/FixStartStateBounds default_planner_request_adapters/FixStartStateCollision default_planner_request_adapters/FixStartStatePathConstraints",
-            # TODO: Reduce start_state_max_bounds_error once spawning with specific joint configuration is enabled
             "start_state_max_bounds_error": 0.1,
         },
     }
@@ -171,12 +153,19 @@ def generate_launch_description():
     }
 
     # MoveIt controller manager
-    moveit_controller_manager_yaml = load_yaml(
-        moveit_config_package, path.join("config", "moveit_controller_manager.yaml")
+    moveit_controller_manager_yaml_4dof = load_yaml(
+        moveit_config_package, path.join("config", "moveit_controllers_4dof.yaml")
     )
-    moveit_controller_manager = {
+    moveit_controller_manager_4dof = {
         "moveit_controller_manager": "moveit_simple_controller_manager/MoveItSimpleControllerManager",
-        "moveit_simple_controller_manager": moveit_controller_manager_yaml,
+        "moveit_simple_controller_manager": moveit_controller_manager_yaml_4dof,
+    }
+    moveit_controller_manager_yaml_5dof = load_yaml(
+        moveit_config_package, path.join("config", "moveit_controllers_5dof.yaml")
+    )
+    moveit_controller_manager_5dof = {
+        "moveit_controller_manager": "moveit_simple_controller_manager/MoveItSimpleControllerManager",
+        "moveit_simple_controller_manager": moveit_controller_manager_yaml_5dof,
     }
 
     # Trajectory execution
@@ -192,9 +181,10 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "__controller_parameters_basename",
-            default_value=["controllers_", ros2_control_command_interface, ".yaml"],
+            default_value=["controllers_", dof, "dof.yaml"]
         )
     )
+
     controller_parameters = PathJoinSubstitution(
         [
             FindPackageShare(moveit_config_package),
@@ -244,29 +234,37 @@ def generate_launch_description():
                 planning_pipeline,
                 trajectory_execution,
                 planning_scene_monitor_parameters,
-                moveit_controller_manager,
+                moveit_controller_manager_5dof,
                 {"use_sim_time": use_sim_time},
             ],
+            condition=IfCondition(
+                PythonExpression(
+                    ["'", dof, "' == '5'"]
+                )
+            )
         ),
-        # # move_servo
-        # Node(
-        #     package="moveit_servo",
-        #     executable="servo_node_main",
-        #     output="log",
-        #     arguments=["--ros-args", "--log-level", log_level],
-        #     parameters=[
-        #         robot_description,
-        #         robot_description_semantic,
-        #         kinematics,
-        #         joint_limits,
-        #         planning_pipeline,
-        #         trajectory_execution,
-        #         planning_scene_monitor_parameters,
-        #         servo_params,
-        #         {"use_sim_time": use_sim_time},
-        #     ],
-        #     condition=IfCondition(enable_servo),
-        # ),
+        Node(
+            package="moveit_ros_move_group",
+            executable="move_group",
+            output="log",
+            arguments=["--ros-args", "--log-level", log_level],
+            parameters=[
+                robot_description,
+                robot_description_semantic,
+                kinematics,
+                joint_limits,
+                planning_pipeline,
+                trajectory_execution,
+                planning_scene_monitor_parameters,
+                moveit_controller_manager_4dof,
+                {"use_sim_time": use_sim_time},
+            ],
+            condition=IfCondition(
+                PythonExpression(
+                    ["'", dof, "' == '4'"]
+                )
+            )
+        ),
         # rviz2
         Node(
             package="rviz2",
@@ -298,13 +296,7 @@ def generate_launch_description():
             condition=(
                 IfCondition(
                     PythonExpression(
-                        [
-                            "'",
-                            ros2_control_plugin,
-                            "'",
-                            " == ",
-                            "'real'",
-                        ]
+                        ["'", ros2_control_plugin, "' == 'real'"]
                     )
                 )
             ),
@@ -312,8 +304,7 @@ def generate_launch_description():
     ]
 
     # Add nodes for loading controllers
-    for controller in moveit_controller_manager_yaml["controller_names"] + [
-        "joint_state_broadcaster"]:
+    for controller in ["joint_state_broadcaster", "arm_trajectory_controller", "gripper_action_controller"]:
         nodes.append(
             Node(
                 package="controller_manager",
@@ -325,7 +316,6 @@ def generate_launch_description():
         )
 
     return LaunchDescription(declared_arguments + nodes)
-
 
 def load_yaml(package_name: str, file_path: str):
     """
@@ -379,20 +369,16 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
         ),
         # Gripper
         DeclareLaunchArgument(
-            "gripper",
-            default_value="true",
-            description="Flag to enable default gripper.",
+            "dof",
+            default_value='4',
+            choices=['4','5'],
+            description="Parameter to select gripper model."
         ),
         # Collision geometry
         DeclareLaunchArgument(
-            "collision_arm",
+            "collision",
             default_value="true",
             description="Flag to enable collision geometry for manipulator's arm.",
-        ),
-        DeclareLaunchArgument(
-            "collision_gripper",
-            default_value="true",
-            description="Flag to enable collision geometry for manipulator's gripper (hand and fingers).",
         ),
         # Safety controller
         DeclareLaunchArgument(
@@ -426,23 +412,12 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
             default_value="fake",
             description="The ros2_control plugin that should be loaded for the manipulator ('fake', 'ign', 'real' or custom).",
         ),
-        DeclareLaunchArgument(
-            "ros2_control_command_interface",
-            default_value="position",
-            description="The output control command interface provided by ros2_control ('position', 'velocity', 'effort' or certain combinations 'position,velocity').",
-        ),
         # Gazebo
         DeclareLaunchArgument(
             "gazebo_preserve_fixed_joint",
             default_value="false",
             description="Flag to preserve fixed joints and prevent lumping when generating SDF for Gazebo.",
         ),
-        # Servo
-        # DeclareLaunchArgument(
-        #     "enable_servo",
-        #     default_value="true",
-        #     description="Flag to enable MoveIt2 Servo for manipulator.",
-        # ),
         # Miscellaneous
         DeclareLaunchArgument(
             "enable_rviz", default_value="true", description="Flag to enable RViz2."

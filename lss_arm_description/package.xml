@@ -2,7 +2,7 @@
 <package format="3">
   <name>lss_arm_description</name>
   <version>1.0.0</version>
-  <description>LSS 4DOF Arm Description Package</description>
+  <description>LSS 4DOF/5DoF Arms Description Package</description>
   <author>Geraldine Barreto</author>
   <maintainer email="gbarreto@robotshop.com"/>
   <license>Apache 2.0</license>

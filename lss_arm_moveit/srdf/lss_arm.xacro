@@ -3,24 +3,47 @@
   <!--       -->
   <!-- Macro -->
   <!--       -->
-  <xacro:macro name="lss_arm" params="
+  <xacro:macro name="lss_arm_4dof" params="
     prefix:=lss_arm_
   ">
     <group name="lss_arm">
-        <chain base_link="lss_arm_link_0" tip_link="lss_arm_ee"/>
+        <chain base_link="${prefix}link_0" tip_link="${prefix}ee"/>
     </group>
     
     <group_state group="lss_arm" name="home" >
-        <joint name="lss_arm_joint_1" value="0.0"/>
-        <joint name="lss_arm_joint_2" value="1.7"/>
-        <joint name="lss_arm_joint_3" value="-0.7"/>
-        <joint name="lss_arm_joint_4" value="-1.7"/>
+        <joint name="${prefix}joint_1" value="0.0"/>
+        <joint name="${prefix}joint_2" value="1.7"/>
+        <joint name="${prefix}joint_3" value="-0.7"/>
+        <joint name="${prefix}joint_4" value="-1.7"/>
     </group_state>
     
-    <disable_collisions link1="lss_arm_link_0" link2="lss_arm_link_1" reason="Adjacent"/>
-    <disable_collisions link1="lss_arm_link_0" link2="lss_arm_link_2" reason="Never"/>
-    <disable_collisions link1="lss_arm_link_1" link2="lss_arm_link_2" reason="Adjacent"/>
-    <disable_collisions link1="lss_arm_link_2" link2="lss_arm_link_3" reason="Adjacent"/>
-    <disable_collisions link1="lss_arm_link_3" link2="lss_arm_link_4" reason="Adjacent"/>
+    <disable_collisions link1="${prefix}link_0" link2="${prefix}link_1" reason="Adjacent"/>
+    <disable_collisions link1="${prefix}link_0" link2="${prefix}link_2" reason="Never"/>
+    <disable_collisions link1="${prefix}link_1" link2="${prefix}link_2" reason="Adjacent"/>
+    <disable_collisions link1="${prefix}link_2" link2="${prefix}link_3" reason="Adjacent"/>
+    <disable_collisions link1="${prefix}link_3" link2="${prefix}link_4" reason="Adjacent"/>
+  </xacro:macro>
+
+  <xacro:macro name="lss_arm_5dof" params="
+    prefix:=lss_arm_
+  ">
+    <group name="lss_arm">
+        <chain base_link="${prefix}link_0" tip_link="${prefix}ee"/>
+    </group>
+    
+    <group_state group="lss_arm" name="home" >
+        <joint name="${prefix}joint_1" value="0.0"/>
+        <joint name="${prefix}joint_2" value="1.7"/>
+        <joint name="${prefix}joint_3" value="-0.7"/>
+        <joint name="${prefix}joint_4" value="-1.7"/>
+        <joint name="${prefix}joint_6" value="0.0"/>
+    </group_state>
+    
+    <disable_collisions link1="${prefix}link_0" link2="${prefix}link_1" reason="Adjacent"/>
+    <disable_collisions link1="${prefix}link_0" link2="${prefix}link_2" reason="Never"/>
+    <disable_collisions link1="${prefix}link_1" link2="${prefix}link_2" reason="Adjacent"/>
+    <disable_collisions link1="${prefix}link_2" link2="${prefix}link_3" reason="Adjacent"/>
+    <disable_collisions link1="${prefix}link_3" link2="${prefix}link_4" reason="Adjacent"/>
+    <disable_collisions link1="${prefix}link_4" link2="${prefix}link_5" reason="Adjacent"/>
   </xacro:macro>
 </robot>

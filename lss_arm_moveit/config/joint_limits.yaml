@@ -38,3 +38,8 @@ joint_limits:
     max_velocity: 6.283
     has_acceleration_limits: false
     max_acceleration: 0.0
+  lss_arm_joint_7:
+    has_velocity_limits: true
+    max_velocity: 6.283
+    has_acceleration_limits: false
+    max_acceleration: 0.0

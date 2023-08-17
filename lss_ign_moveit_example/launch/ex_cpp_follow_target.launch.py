@@ -4,7 +4,6 @@
 from os import path
 from typing import List
 
-import yaml
 from ament_index_python.packages import get_package_share_directory
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
@@ -16,9 +15,8 @@ from launch.substitutions import (
     Command,
     FindExecutable,
     LaunchConfiguration,
-    PathJoinSubstitution,
+    PathJoinSubstitution
 )
-
 
 def generate_launch_description() -> LaunchDescription:
 
@@ -29,7 +27,8 @@ def generate_launch_description() -> LaunchDescription:
     description_package = LaunchConfiguration("description_package")
     description_filepath = LaunchConfiguration("description_filepath")
     moveit_config_package = "lss_arm_moveit"
-    robot_type = LaunchConfiguration("robot_type")
+    name = LaunchConfiguration("name")
+    dof = LaunchConfiguration("dof")
     rviz_config = LaunchConfiguration("rviz_config")
     use_sim_time = LaunchConfiguration("use_sim_time")
     ign_verbosity = LaunchConfiguration("ign_verbosity")
@@ -45,7 +44,10 @@ def generate_launch_description() -> LaunchDescription:
             ),
             " ",
             "name:=",
-            robot_type,
+            name,
+            " ",
+            "dof:=",
+            dof,
         ]
     )
     robot_description = {"robot_description": _robot_description_xml}
@@ -64,7 +66,10 @@ def generate_launch_description() -> LaunchDescription:
             ),
             " ",
             "name:=",
-            robot_type,
+            name,
+            " ",
+            "dof:=",
+            dof,
         ]
     )
     robot_description_semantic = {
@@ -85,8 +90,8 @@ def generate_launch_description() -> LaunchDescription:
                 )
             ),
             launch_arguments=[
+                ("dof", dof),
                 ("world_type", "follow_target"),
-                ("robot_type", robot_type),
                 ("rviz_config", rviz_config),
                 ("use_sim_time", use_sim_time),
                 ("ign_verbosity", ign_verbosity),
@@ -113,29 +118,6 @@ def generate_launch_description() -> LaunchDescription:
 
     return LaunchDescription(declared_arguments + launch_descriptions + nodes)
 
-
-def load_yaml(package_name: str, file_path: str):
-    """
-    Load yaml configuration based on package name and file path relative to its share.
-    """
-
-    package_path = get_package_share_directory(package_name)
-    absolute_file_path = path.join(package_path, file_path)
-    return parse_yaml(absolute_file_path)
-
-
-def parse_yaml(absolute_file_path: str):
-    """
-    Parse yaml from file, given its absolute file path.
-    """
-
-    try:
-        with open(absolute_file_path, "r") as file:
-            return yaml.safe_load(file)
-    except EnvironmentError:
-        return None
-
-
 def generate_declared_arguments() -> List[DeclareLaunchArgument]:
     """
     Generate list of all launch arguments that are declared for this launch script.
@@ -153,11 +135,18 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
             default_value=path.join("urdf", "lss_arm.urdf.xacro"),
             description="Path to xacro or URDF description of the robot, relative to share of `description_package`.",
         ),
-        # Robot selection
+        # Naming of the robot
         DeclareLaunchArgument(
-            "robot_type",
+            "name",
             default_value="lss_arm",
-            description="Name of the robot to use.",
+            description="Name of the robot.",
+        ),
+        # Gripper
+        DeclareLaunchArgument(
+            "dof",
+            default_value='4',
+            choices=['4','5'],
+            description="Parameter to select gripper model."
         ),
         # Miscellaneous
         DeclareLaunchArgument(

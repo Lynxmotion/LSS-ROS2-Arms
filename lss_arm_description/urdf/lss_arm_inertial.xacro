@@ -10,9 +10,11 @@
   <xacro:property name="link_1_mesh" value="link_1"/>
   <xacro:property name="link_2_mesh" value="link_2"/>
   <xacro:property name="link_3_mesh" value="link_3"/>
-  <xacro:property name="link_4_mesh" value="link_4"/>
-  <xacro:property name="finger_r_mesh" value="finger_r"/>
+  <xacro:property name="link_4_mesh_4dof" value="link_4_4dof"/>
+  <xacro:property name="link_4_mesh_5dof" value="link_4_5dof"/>
+  <xacro:property name="link_5_mesh_5dof" value="link_5_5dof"/>
   <xacro:property name="finger_l_mesh" value="finger_l"/>
+  <xacro:property name="finger_r_mesh" value="finger_r"/>
 
 
   <!--       -->
@@ -64,7 +66,7 @@
       </inertial>
     </xacro:if>
 
-    <xacro:if value="${mesh == link_4_mesh}">
+    <xacro:if value="${mesh == link_4_mesh_4dof}">
       <inertial>
           <origin xyz="0.0446894562780881 -0.000131072409021604 0.000356231689785028" rpy="${mesh_offset_rpy}" />
           <mass value="0.0556319659037934" />
@@ -72,7 +74,23 @@
       </inertial>
     </xacro:if>
 
-    <xacro:if value="${mesh == finger_r_mesh}">
+    <xacro:if value="${mesh == link_4_mesh_5dof}">
+      <inertial>
+          <origin xyz="0.041227 -1.5305E-06 -0.010489" rpy="${mesh_offset_rpy}" />
+          <mass value="0.051733" />
+          <inertia ixx="1.3345E-05" ixy="2.5814E-10" ixz="-1.8101E-07" iyy="1.6468E-05" iyz="-7.6602E-10" izz="8.1683E-06" />
+      </inertial>
+    </xacro:if>
+
+    <xacro:if value="${mesh == link_5_mesh_5dof}">
+      <inertial>
+          <origin xyz="0.033089 -0.0086089 4.6839E-05" rpy="${mesh_offset_rpy}" />
+          <mass value="0.050102" />
+          <inertia ixx="1.6176E-05" ixy="-9.3694E-14" ixz="9.1972E-11" iyy="1.2688E-05" iyz="2.1445E-07" izz="8.3014E-06" />
+      </inertial>
+    </xacro:if>
+
+    <xacro:if value="${mesh == finger_l_mesh}">
       <inertial>
           <origin xyz="0.0310712366675979 -0.0140452526813673 0.00133953163684892" rpy="${mesh_offset_rpy}" />
           <mass value="0.0152813047822834" />
@@ -80,7 +98,7 @@
       </inertial>
     </xacro:if>
 
-    <xacro:if value="${mesh == finger_l_mesh}">
+    <xacro:if value="${mesh == finger_r_mesh}">
       <inertial>
           <origin xyz="0.0307726942893274 -0.0140975049159748 -0.0013266609885073" rpy="${mesh_offset_rpy}" />
           <mass value="0.0154295568992377" />

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Macros that add Ignition Gazebo plugins for LSS 4DoF Arm -->
+<!-- Macros that add Ignition Gazebo plugins for LSS 4DoF/5DoF Arms -->
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <!--       -->

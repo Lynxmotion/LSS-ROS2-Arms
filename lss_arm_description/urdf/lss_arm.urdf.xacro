@@ -1,35 +1,31 @@
 <?xml version="1.0"?>
-<!-- URDF for LSS 4DoF Arm -->
+<!-- URDF for LSS 4DoF/5DoF Arms -->
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="$(arg name)">
 
   <!--                   -->
   <!-- Imported elements -->
   <!--                   -->
-  <xacro:include filename="$(find lss_arm_description)/urdf/lss_arm.xacro"/>
-  <xacro:include filename="$(find lss_arm_description)/urdf/lss_gripper.xacro"/>
   <xacro:include filename="$(find lss_arm_description)/urdf/lss_arm_utils.xacro"/>
   <xacro:include filename="$(find lss_arm_description)/urdf/lss_arm.gazebo"/>
-
+  <xacro:include filename="$(find lss_arm_description)/urdf/lss_arm.xacro"/>
 
   <!--            -->
   <!-- Parameters -->
   <!--            -->
-  <!-- Flag to enable tb4 platform -->
-  <xacro:arg name="tb4" default="false" />
-  
+  <!-- Flag to enable adapter_bracket platform -->
+  <xacro:arg name="adapter_bracket" default="false" />
+
+  <!-- Parameter to select gripper model-->
+  <xacro:arg name="dof" default="4"/>
+
   <!-- Name of the robot (mandatory) -->
   <xacro:arg name="name" default="lss_arm"/>
 
   <!-- Prefix for all entities -->
   <xacro:arg name="prefix" default="lss_arm_"/>
 
-  <!-- Flag to enable default gripper -->
-  <xacro:arg name="gripper" default="true" />
-
   <!-- Flag to enable collision geometry for manipulator's arm -->
-  <xacro:arg name="collision_arm" default="true"/>
-  <!-- Flag to enable collision geometry for manipulator's gripper (hand and fingers) -->
-  <xacro:arg name="collision_gripper" default="true"/>
+  <xacro:arg name="collision" default="true"/>
 
   <!-- Flag to enable safety limits controllers on manipulator joints -->
   <xacro:arg name="safety_limits" default="false"/>
@@ -44,10 +40,8 @@
   <xacro:arg name="ros2_control" default="true"/>
   <!-- The ros2_control plugin that should be loaded for the manipulator ('fake', 'ign', 'real' or custom) -->
   <xacro:arg name="ros2_control_plugin" default="ign"/>
-  <!-- The output control command interface provided by ros2_control ('position', 'velocity', 'effort' or certain combinations 'position,velocity') -->
-  <xacro:arg name="ros2_control_command_interface" default="position"/>
   <!-- The filepath to parameters of ROS 2 controllers -->
-  <xacro:arg name="ros2_controller_parameters" default="$(find lss_arm_moveit)/config/controllers_$(arg ros2_control_command_interface).yaml"/>
+  <xacro:arg name="ros2_controller_parameters" default="$(find lss_arm_moveit)/config/controllers_$(arg dof)dof.yaml"/>
 
   <!-- Flag to preserve fixed joints and prevent lumping when generating SDF for Gazebo -->
   <xacro:arg name="gazebo_preserve_fixed_joint" default="false"/>
@@ -58,7 +52,6 @@
   <!--            -->
   <!-- Prefixes -->
   <xacro:property name="prefix_arm" value="$(arg prefix)"/>
-  <xacro:property name="prefix_gripper" value="$(arg prefix)"/>
 
   <!-- Origin of robot in the world -->
   <xacro:property name="world_name" value="world"/>
@@ -79,10 +72,10 @@
     gazebo_preserve_fixed_joint="$(arg gazebo_preserve_fixed_joint)"
   />
 
-  <xacro:unless value="$(arg tb4)">
+  <xacro:unless value="$(arg adapter_bracket)">
     <xacro:property name="joint_0_origin_xyz" value="0 0 0"/>
   </xacro:unless>
-  <xacro:if value="$(arg tb4)">
+  <xacro:if value="$(arg adapter_bracket)">
     <xacro:property name="joint_0_origin_xyz" value="0.063 0 0.2"/>
   </xacro:if>
 
@@ -92,28 +85,48 @@
     prefix="${prefix_arm}"
     origin_xyz="${origin_xyz}"
     origin_rpy="${origin_rpy}"
-    collision="$(arg collision_arm)"
+    collision="$(arg collision)"
     safety_limits="$(arg safety_limits)"
     safety_position_margin="$(arg safety_position_margin)"
     safety_k_position="$(arg safety_k_position)"
     safety_k_velocity="$(arg safety_k_velocity)"
     ros2_control="$(arg ros2_control)"
     ros2_control_plugin="$(arg ros2_control_plugin)"
-    ros2_control_command_interface="$(arg ros2_control_command_interface)"
     gazebo_preserve_fixed_joint="$(arg gazebo_preserve_fixed_joint)"
   />
 
   <!-- Gripper -->
-  <xacro:if value="$(arg gripper)">
-    <xacro:lss_gripper
-      lss_gripper="${prefix_arm}${gripper_name}"
-      prefix="${prefix_gripper}"
+  <xacro:if value="${'$(arg dof)' == '4'}">
+  <xacro:include filename="$(find lss_arm_description)/urdf/lss_gripper_4dof.xacro"/>
+    <xacro:gripper_4dof
+      lss_gripper="${prefix_arm}gripper_4dof"
+      prefix="${prefix_arm}"
       origin_xyz="${gripper_offset_xyz}"
       origin_rpy="${gripper_offset_rpy}"
-      collision="$(arg collision_gripper)"
+      collision="$(arg collision)"
+      safety_limits="$(arg safety_limits)"
+      safety_position_margin="$(arg safety_position_margin)"
+      safety_k_position="$(arg safety_k_position)"
+      safety_k_velocity="$(arg safety_k_velocity)"
       ros2_control="$(arg ros2_control)"
       ros2_control_plugin="$(arg ros2_control_plugin)"
-      ros2_control_command_interface="$(arg ros2_control_command_interface)"
+      gazebo_preserve_fixed_joint="$(arg gazebo_preserve_fixed_joint)"
+    />
+  </xacro:if>
+  <xacro:if value="${'$(arg dof)' == '5'}">
+  <xacro:include filename="$(find lss_arm_description)/urdf/lss_gripper_5dof.xacro"/>
+    <xacro:gripper_5dof
+      lss_gripper="${prefix_arm}gripper_5dof"
+      prefix="${prefix_arm}"
+      origin_xyz="${gripper_offset_xyz}"
+      origin_rpy="${gripper_offset_rpy}"
+      collision="$(arg collision)"
+      safety_limits="$(arg safety_limits)"
+      safety_position_margin="$(arg safety_position_margin)"
+      safety_k_position="$(arg safety_k_position)"
+      safety_k_velocity="$(arg safety_k_velocity)"
+      ros2_control="$(arg ros2_control)"
+      ros2_control_plugin="$(arg ros2_control_plugin)"
       gazebo_preserve_fixed_joint="$(arg gazebo_preserve_fixed_joint)"
     />
   </xacro:if>

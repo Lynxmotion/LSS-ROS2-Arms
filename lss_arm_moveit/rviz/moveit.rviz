@@ -67,12 +67,12 @@ Visualization Manager:
             Alpha: 1
             Show Axes: false
             Show Trail: false
-          lss_arm_finger_l:
+          lss_arm_finger_r:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          lss_arm_finger_r:
+          lss_arm_finger_l:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -155,12 +155,12 @@ Visualization Manager:
             Alpha: 1
             Show Axes: false
             Show Trail: false
-          lss_arm_finger_l:
+          lss_arm_finger_r:
             Alpha: 1
             Show Axes: false
             Show Trail: false
             Value: true
-          lss_arm_finger_r:
+          lss_arm_finger_l:
             Alpha: 1
             Show Axes: false
             Show Trail: false

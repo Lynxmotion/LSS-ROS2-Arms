@@ -5,4 +5,5 @@ initial_joint_positions:
     lss_arm_joint_3: -0.7
     lss_arm_joint_4: -1.7
     lss_arm_joint_5: 0.0
+  gripper_5dof:
     lss_arm_joint_6: 0.0

@@ -1,5 +1,5 @@
 #!/usr/bin/env -S ros2 launch
-"""Launch script for spawning LSS 4DoF Arm into Ignition Gazebo world"""
+"""Launch script for spawning LSS 4DoF/5DoF Arm into Ignition Gazebo world"""
 
 from typing import List
 
@@ -7,7 +7,7 @@ from launch_ros.actions import Node
 
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, PythonExpression
 
 
 def generate_launch_description() -> LaunchDescription:
@@ -16,9 +16,11 @@ def generate_launch_description() -> LaunchDescription:
     declared_arguments = generate_declared_arguments()
 
     # Get substitution for all arguments
-    model = LaunchConfiguration("model")
+    dof = LaunchConfiguration("dof")
     use_sim_time = LaunchConfiguration("use_sim_time")
     log_level = LaunchConfiguration("log_level")
+
+    model = PythonExpression(["'lss_arm_", dof, "dof'"])
 
     # List of nodes to be launched
     nodes = [
@@ -41,11 +43,12 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
     """
 
     return [
-        # Model for Ignition Gazebo
+        # Gripper
         DeclareLaunchArgument(
-            "model",
-            default_value="lss_arm",
-            description="Name or filepath of model to load.",
+            "dof",
+            default_value='4',
+            choices=['4','5'],
+            description="Parameter to select gripper model."
         ),
         # Miscellaneous
         DeclareLaunchArgument(
