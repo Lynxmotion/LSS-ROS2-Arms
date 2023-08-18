@@ -206,4 +206,4 @@ Official Lynxmotion Smart Servo (LSS) Hardware Interface available [here](https:
 
 If you want more details about the LSS protocol, go [here](https://wiki.lynxmotion.com/info/wiki/lynxmotion/view/lynxmotion-smart-servo/lss-communication-protocol/).
 
-Have any questions? Ask them on the RobotShop [Community]([https://www.robotshop.com/community/](https://community.robotshop.com/forum/c/lynxmotion/electronics-software/27)https://community.robotshop.com/forum/c/lynxmotion/electronics-software/27).
+Have any questions? Ask them on the RobotShop [Community](https://community.robotshop.com/forum/c/lynxmotion/electronics-software/27).
