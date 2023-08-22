@@ -17,9 +17,13 @@ The LSS-ROS2-Arms repository contains common packages that are used by both the 
 1. [ROS 2 Galactic](https://docs.ros.org/en/galactic/Installation.html)
 2. ROS 2 dev tools:
     - [colcon-common-extensions](https://pypi.org/project/colcon-common-extensions/)
-    - [rosdep](https://pypi.org/project/rosdep/): Used to install dependencies when building from sources
     - [vcs](https://pypi.org/project/vcstool/): Automates cloning of git repositories declared on a YAML file.
-3. Ignition Gazebo
+3. Rosdep: Used to install dependencies when building from sources
+```
+sudo apt install python3-rosdep2
+rosdep update --include-eol-distros
+```
+4. Ignition Gazebo
 ```
 sudo apt-get update && sudo apt-get install wget
 sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
