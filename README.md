@@ -35,16 +35,16 @@ sudo apt-get install ignition-edifice
 ## Package installation
 
 ```
-mkdir -p ~/LSS-ROS2-Arms/src
-cd ~/LSS-ROS2-Arms/src
+mkdir -p LSS-ROS2-Arms/src
+cd LSS-ROS2-Arms/src
 git clone https://github.com/Lynxmotion/LSS-ROS2-Arms.git
 ```
 
 ### Install dependencies
 
 ```
-vcs import < required.repos
-cd ~/LSS-ROS2-Arms
+vcs import < LSS-ROS2-Arms/required.repos
+cd ..
 rosdep install --from-path src -yi --rosdistro galactic
 ```
 
