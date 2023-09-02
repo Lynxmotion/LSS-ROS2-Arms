@@ -18,6 +18,7 @@ The LSS-ROS2-Arms repository contains common packages that are used by both the 
 2. ROS 2 dev tools:
     - [colcon-common-extensions](https://pypi.org/project/colcon-common-extensions/)
     - [vcs](https://pypi.org/project/vcstool/): Automates cloning of git repositories declared on a YAML file.
+    - [catch2](https://www.cyberithub.com/how-to-install-catch2-on-ubuntu-20-04-lts-focal-fossa/)
 3. Rosdep: Used to install dependencies when building from sources
 ```
 sudo apt install python3-rosdep2
