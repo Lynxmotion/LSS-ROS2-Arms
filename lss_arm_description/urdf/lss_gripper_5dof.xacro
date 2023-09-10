@@ -18,7 +18,7 @@
   <xacro:property name="joint_4_lower_limit" value="${-140*pi/180}"/>
   <xacro:property name="joint_4_upper_limit" value="${140*pi/180}"/>
   <xacro:property name="joint_4_velocity_limit" value="6.283"/>
-  <xacro:property name="joint_4_torque_limit" value="6.8439285"/>
+  <xacro:property name="joint_4_torque_limit" value="6.5"/>
   <xacro:property name="joint_4_damping" value="0.01"/>
   <xacro:property name="joint_4_friction" value="3.48"/>
   <xacro:property name="link_4_name" value="link_4"/>
@@ -32,7 +32,7 @@
   <xacro:property name="joint_5_lower_limit" value="${-pi}"/>
   <xacro:property name="joint_5_upper_limit" value="${pi}"/>
   <xacro:property name="joint_5_velocity_limit" value="6.283"/>
-  <xacro:property name="joint_5_torque_limit" value="6.8439285"/>
+  <xacro:property name="joint_5_torque_limit" value="6.5"/>
   <xacro:property name="joint_5_damping" value="0.01"/>
   <xacro:property name="joint_5_friction" value="3.48"/>
   <xacro:property name="link_5_name" value="link_5"/>
