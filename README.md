@@ -103,12 +103,34 @@ All the available launch files have the following configuration options:
 ```
 ros2 launch lss_arm_description view.launch.py dof:=4
 ```
+<p align="center">
+  <table align="center" border="0">
+    <tr>
+      <td align="center">
+        <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/rviz_view_4dof.png" height="210px"/>
+        <br>4DoF
+      </td>
+      <td align="center">
+        <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/rviz_view_5dof.png" height="210px"/>
+        <br>5DoF
+      </td>
+    </tr>
+  </table>
+</p>
 
+<p align="center">
+  <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/description_5dof.gif" width="600px"/>
+</p>
+
+### MoveIt package
 **View in Ignition Gazebo**
 
 ```
-ros2 launch lss_arm_description view_ign.launch.py dof:=4
+ros2 launch lss_arm_description view_ign.launch.py dof:=5
 ```
+<p align="center">
+  <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/sim_ign_5dof.png" width="450px"/>
+</p>
 
 ### MoveIt package
 
@@ -132,12 +154,37 @@ The following launch files are available:
 ```
 ros2 launch lss_arm_moveit fake_arm_control.launch.py dof:=4
 ```
+<p align="center">
+  <table align="center" border="0">
+    <tr>
+      <td align="center">
+        <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/moveit_4dof.png" height="230px"/>
+        <br>4DoF
+      </td>
+      <td align="center">
+        <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/moveit_5dof.gif" height="230px"/>
+        <br>5DoF
+      </td>
+    </tr>
+  </table>
+</p>
 
 **Simulated controllers (Rviz + Ignition Gazebo Simulation)**
 
 ```
 ros2 launch lss_arm_moveit ign_arm_control.launch.py dof:=4
 ```
+<p align="center">
+  <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/moveit_ign_4dof.png" width="650px"/>
+</p>
+
+```
+ros2 launch lss_arm_moveit ign_arm_control.launch.py dof:=5
+```
+<p align="center">
+  <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/ign_obstacle_5dof.gif" width="600px"/>
+  <br>Obstacle avoidance example
+</p>
 
 **Real controller (RViz + Real Robot)**
 
@@ -197,6 +244,9 @@ The lss_ign_moveit_example package contains an example of a C++ implementation t
 ```
 ros2 launch lss_ign_moveit_example ex_cpp_follow_target.launch.py
 ```
+<p align="center">
+  <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/follow_goal_4dof.gif" width="600px"/>
+</p>
 
 * Note: The arm only has 4 DoF so it is not always possible to reach the desired position + orientation goal. This implementation adjusts the goal orientation so it is always parallel to the base of the robot, this allows it to plan a trajectory "ignoring" the orientation.
 
