@@ -206,6 +206,10 @@ To control the arm:
 ros2 launch lss_arm_moveit real_arm_control.launch.py dof:=4
 ```
 
+<p align="center">
+  <img src="https://github.com/geraldinebc/tb4_lss_tests/blob/main/images/4dof_real_control.gif" width="600px"/>
+</p>
+
 * Note: If the servos light up *Blue* they have been configured correctly if not try running:
 ```
 sudo chmod 766 /dev/ttyUSB0
@@ -223,6 +227,10 @@ ros2 topic pub --once /effort_controller/commands std_msgs/msg/Float64MultiArray
 * Note: For the 5DoF version add an extra - 6.8
 
 3. Now you are able to plan the trajectories using MoveIt2 and executing them with real hardware
+
+<p align="center">
+  <img src="https://github.com/geraldinebc/tb4_lss_tests/blob/main/images/5dof_real_control.gif" width="600px"/>
+</p>
 
 To make the servos go Limp use:
 ```
