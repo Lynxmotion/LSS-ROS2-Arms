@@ -132,7 +132,7 @@ ros2 launch lss_arm_description view_ign.launch.py dof:=5
   <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/sim_ign_5dof.png" width="450px"/>
 </p>
 
-### MoveIt package
+### MoveIt2 package
 
 The lss_arm_moveit package contains all the configuration and launch files for using the LSS Arm with the MoveIt2 Motion Planning Framework.
 
@@ -149,7 +149,7 @@ bash src/lss_arm_description/scripts/xacro2urdf.bash -d 5
 
 The following launch files are available:
 
-**Fake controllers (Rviz)**
+**Fake controller (Rviz)**
 
 ```
 ros2 launch lss_arm_moveit fake_arm_control.launch.py dof:=4
@@ -169,7 +169,7 @@ ros2 launch lss_arm_moveit fake_arm_control.launch.py dof:=4
   </table>
 </p>
 
-**Simulated controllers (Rviz + Ignition Gazebo Simulation)**
+**Simulated controller (Rviz Interface + Ignition Gazebo Simulation)**
 
 ```
 ros2 launch lss_arm_moveit ign_arm_control.launch.py dof:=4
@@ -186,7 +186,7 @@ ros2 launch lss_arm_moveit ign_arm_control.launch.py dof:=5
   <br>Obstacle avoidance example
 </p>
 
-**Real controller (RViz + Real Robot)**
+**Real controller (RViz Interface + Physical Robot)**
 
 Before controlling the real robot first follow these steps:
 
@@ -226,7 +226,7 @@ ros2 topic pub --once /effort_controller/commands std_msgs/msg/Float64MultiArray
 ```
 * Note: For the 5DoF version add an extra - 6.8
 
-3. Now you are able to plan the trajectories using MoveIt2 and executing them with real hardware
+3. Now you are able to plan the trajectories using MoveIt2 and execute them with real hardware
 
 <p align="center">
   <img src="https://github.com/geraldinebc/tb4_lss_tests/blob/main/images/5dof_real_control.gif" width="600px"/>
