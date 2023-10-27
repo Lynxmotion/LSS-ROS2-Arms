@@ -122,7 +122,6 @@ ros2 launch lss_arm_description view.launch.py dof:=4
   <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/description_5dof.gif" width="600px"/>
 </p>
 
-### MoveIt package
 **View in Ignition Gazebo**
 
 ```
@@ -245,7 +244,7 @@ ros2 topic pub --once /effort_controller/commands std_msgs/msg/Float64MultiArray
 
 ### LSS Ignition MoveIt Example
 
-The lss_ign_moveit_example package contains an example of a C++ implementation to follow a target. This is simulated in Gazebo Ignition, the target (box) can be moved in the world and the Arm will move to the desired position. This example is only available for the 4 DoF version.
+The lss_ign_moveit_example package launches a simulation of the 4DoF LSS Arm in Gazebo Ignition where you can interact with a box in the virtual environment. This example includes a C++ implementation that makes the arm track the target (box) whenever you change its location.
 
 **Follow Goal Demo (Simulation)**
 
