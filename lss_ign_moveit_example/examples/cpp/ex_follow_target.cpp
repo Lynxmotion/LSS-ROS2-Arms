@@ -52,26 +52,28 @@ void MoveItFollowTarget::target_pose_callback(const geometry_msgs::msg::PoseStam
 
   RCLCPP_INFO(this->get_logger(), "Target pose has changed. Planning and executing...");
 
-  // Calculate the yaw angle based on the target position and the base
-  double yaw = atan2(msg->pose.position.y, msg->pose.position.x);
-
-  // Create a quaternion from the Euler angles
-  tf2::Quaternion q;
-  q.setRPY(1.57, 0.0, yaw); // roll, pitch, yaw
-
-  // Copy the desired pose (goal position w/o orientation)
-  geometry_msgs::msg::PoseStamped pose_position_only = *msg;
-
-  // Set default orientation (always parallel to the base)
-  pose_position_only.pose.orientation = tf2::toMsg(q);
-
-  // Plan and execute motion towards position
-  this->move_group_.setPoseTarget(pose_position_only.pose);
-  this->move_group_.move();
-
-  // Plan and execute motion towards orientation (if possible)
+  // Plan and execute motion towards target pose
   this->move_group_.setPoseTarget(msg->pose);
-  this->move_group_.move();
+  moveit::planning_interface::MoveItErrorCode success = this->move_group_.move();
+
+  // If unable to move to target pose, try pose_position_only.pose
+  if (success != moveit::planning_interface::MoveItErrorCode::SUCCESS) {
+    // Calculate the yaw angle based on the target position and the base
+    double yaw = atan2(msg->pose.position.y, msg->pose.position.x);
+
+    // Create a quaternion from the Euler angles
+    tf2::Quaternion q;
+    q.setRPY(1.57, 0.0, yaw); // roll, pitch, yaw
+
+    // Copy the desired pose (goal position w/o orientation)
+    geometry_msgs::msg::PoseStamped pose_position_only = *msg;
+
+    // Set default orientation (always parallel to the base)
+    pose_position_only.pose.orientation = tf2::toMsg(q);
+  
+    this->move_group_.setPoseTarget(pose_position_only.pose);
+    this->move_group_.move();
+  }
 
   // Update for next callback
   previous_target_pose_ = msg->pose;
