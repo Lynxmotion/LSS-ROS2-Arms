@@ -25,10 +25,8 @@ sudo apt install ros-galactic-backward-ros
 sudo apt install python3-rosdep2
 rosdep update --include-eol-distros
 ```
-
-4. [Catch2](https://www.cyberithub.com/how-to-install-catch2-on-ubuntu-20-04-lts-focal-fossa/)
-
-5. [Ignition Gazebo Edifice](https://gazebosim.org/docs/edifice/install)
+4. [Ignition Gazebo Edifice](https://gazebosim.org/docs/edifice/install)
+5. [Catch2](https://www.cyberithub.com/how-to-install-catch2-on-ubuntu-20-04-lts-focal-fossa/)
 
 ## Package installation
 
