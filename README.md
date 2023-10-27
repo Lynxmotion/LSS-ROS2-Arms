@@ -7,31 +7,28 @@ The LSS-ROS2-Arms repository contains common packages that are used by both the 
 - [Prerequisites](#prerequisites)
 - [Package installation](#package-installation)
 - [Description package](#description-package)
-- [MoveIt package](#moveit-package)
+- [MoveIt2 package](#moveit2-package)
 - [Follow goal example](#lss-ignition-moveit-example)
 - [Author](#author)
 - [Resources](#resources)
 
 ## Prerequisites
 
-1. [ROS 2 Galactic](https://docs.ros.org/en/galactic/Installation.html)
-2. ROS 2 dev tools:
-    - [colcon-common-extensions](https://pypi.org/project/colcon-common-extensions/)
-    - [vcs](https://pypi.org/project/vcstool/): Automates cloning of git repositories declared on a YAML file.
-    - [catch2](https://www.cyberithub.com/how-to-install-catch2-on-ubuntu-20-04-lts-focal-fossa/)
-3. Rosdep: Used to install dependencies when building from sources
+1. [Ubuntu 20.04.6 (Focal Fossa)](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview)
+2. [ROS2 Galactic](https://docs.ros.org/en/galactic/Installation.html)
+3. ROS2 dev tools:
+
 ```
+sudo pip install colcon-common-extensions
+sudo pip install vcstool
+sudo apt install ros-galactic-backward-ros
 sudo apt install python3-rosdep2
 rosdep update --include-eol-distros
 ```
-4. Ignition Gazebo
-```
-sudo apt-get update && sudo apt-get install wget
-sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
-wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install ignition-edifice
-```
+
+4. [Catch2](https://www.cyberithub.com/how-to-install-catch2-on-ubuntu-20-04-lts-focal-fossa/)
+
+5. [Ignition Gazebo Edifice](https://gazebosim.org/docs/edifice/install)
 
 ## Package installation
 
