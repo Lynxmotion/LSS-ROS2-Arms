@@ -15,7 +15,7 @@ The LSS-ROS2-Arms repository contains common packages that are used by both the 
 ## Prerequisites
 
 1. [Ubuntu 20.04.6 (Focal Fossa)](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview)
-2. [ROS2 Galactic](https://docs.ros.org/en/galactic/Installation.html)
+2. [ROS2 Galactic (Desktop)](https://docs.ros.org/en/galactic/Installation.html)
 3. ROS2 dev tools:
 
 ```
@@ -65,9 +65,9 @@ source install/setup.bash
 
 ## Description package
 
-The lss_arm_description package contains the URDF description & SDF model of the robot and the mesh files for each component.
+The lss_arm_description package contains the [URDF](http://wiki.ros.org/urdf/XML/model) description & [SDF](https://classic.gazebosim.org/tutorials?tut=build_model) model of the robot and the mesh files for each component.
 
-It contains scripts that convert xacro into the required URDF and SDF files.
+It contains scripts that convert [xacro](https://github.com/ros/xacro) into the required URDF and SDF files.
 
 To generate the **required** SDF file used for the simulation run:
 ```
@@ -132,7 +132,7 @@ The lss_arm_moveit package contains all the configuration and launch files for u
 
 It offers different controller plugins for the manipulator ('fake', 'ign' and 'real')
 
-If you want to generate the SRDF files (not required) you can run:
+If you want to generate the [SRDF](https://docs.ros.org/en/kinetic/api/moveit_tutorials/html/doc/urdf_srdf/urdf_srdf_tutorial.html#srdf) files (not required) you can run:
 ```
 bash src/lss_arm_moveit/scripts/xacro2srdf.bash
 ```
@@ -144,6 +144,8 @@ bash src/lss_arm_description/scripts/xacro2urdf.bash -d 5
 The following launch files are available:
 
 **Fake controller (Rviz)**
+
+MoveIt allows the use of a fake trajectory controller to be used for visualization purposes. The fake controllers are not designed to interact with a physics engine, so the robot’s motion is not affected by gravity or other physical forces.
 
 ```
 ros2 launch lss_arm_moveit fake_arm_control.launch.py dof:=4
@@ -164,6 +166,8 @@ ros2 launch lss_arm_moveit fake_arm_control.launch.py dof:=4
 </p>
 
 **Simulated controller (Rviz Interface + Ignition Gazebo Simulation)**
+
+Unlike the "fake controller" the "simulated controller" integrates the robot controllers with Gazebo, allowing a realistic simulation of the robot's motion. This is useful for testing and validating the robot’s behavior in a simulated environment before deploying it in the real world.
 
 ```
 ros2 launch lss_arm_moveit ign_arm_control.launch.py dof:=4
