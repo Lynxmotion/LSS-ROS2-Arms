@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <sdf version="1.8">
-  <world name="ign_moveit2_follow_target_world">
+  <world name="gz_moveit2_follow_target_world">
 
     <!-- Physics -->
     <plugin filename="ignition-gazebo-physics-system" name="ignition::gazebo::systems::Physics">

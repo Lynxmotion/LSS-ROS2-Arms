@@ -31,7 +31,7 @@ def generate_launch_description() -> LaunchDescription:
     dof = LaunchConfiguration("dof")
     rviz_config = LaunchConfiguration("rviz_config")
     use_sim_time = LaunchConfiguration("use_sim_time")
-    ign_verbosity = LaunchConfiguration("ign_verbosity")
+    gz_verbosity = LaunchConfiguration("gz_verbosity")
     log_level = LaunchConfiguration("log_level")
 
     # URDF
@@ -83,7 +83,7 @@ def generate_launch_description() -> LaunchDescription:
             PythonLaunchDescriptionSource(
                 PathJoinSubstitution(
                     [
-                        FindPackageShare("lss_ign_moveit_example"),
+                        FindPackageShare("lss_gz_moveit_example"),
                         "launch",
                         "default.launch.py",
                     ]
@@ -94,7 +94,7 @@ def generate_launch_description() -> LaunchDescription:
                 ("world_type", "follow_target"),
                 ("rviz_config", rviz_config),
                 ("use_sim_time", use_sim_time),
-                ("ign_verbosity", ign_verbosity),
+                ("gz_verbosity", gz_verbosity),
                 ("log_level", log_level),
             ],
         ),
@@ -104,7 +104,7 @@ def generate_launch_description() -> LaunchDescription:
     nodes = [
         # Run the example node (C++)
         Node(
-            package="lss_ign_moveit_example",
+            package="lss_gz_moveit_example",
             executable="ex_follow_target",
             output="log",
             arguments=["--ros-args", "--log-level", log_level],
@@ -152,9 +152,9 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
         DeclareLaunchArgument(
             "rviz_config",
             default_value=path.join(
-                get_package_share_directory("lss_ign_moveit_example"),
+                get_package_share_directory("lss_gz_moveit_example"),
                 "rviz",
-                "lss_ign_moveit.rviz",
+                "lss_gz_moveit.rviz",
             ),
             description="Path to configuration for RViz2.",
         ),
@@ -164,9 +164,9 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
             description="If true, use simulated clock.",
         ),
         DeclareLaunchArgument(
-            "ign_verbosity",
+            "gz_verbosity",
             default_value="2",
-            description="Verbosity level for Ignition Gazebo (0~4).",
+            description="Verbosity level for Gazebo (0~4).",
         ),
         DeclareLaunchArgument(
             "log_level",

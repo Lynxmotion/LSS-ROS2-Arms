@@ -1,5 +1,5 @@
 #!/usr/bin/env -S ros2 launch
-"""Launch script for spawning LSS 4DoF/5DoF Arm into Ignition Gazebo world"""
+"""Launch script for spawning LSS 4DoF/5DoF Arm into Gazebo world"""
 
 from typing import List
 
@@ -24,9 +24,8 @@ def generate_launch_description() -> LaunchDescription:
 
     # List of nodes to be launched
     nodes = [
-        # ros_ign_gazebo_create
         Node(
-            package="ros_ign_gazebo",
+            package="ros_gz_sim",
             executable="create",
             output="log",
             arguments=["-file", model, "--ros-args", "--log-level", log_level],

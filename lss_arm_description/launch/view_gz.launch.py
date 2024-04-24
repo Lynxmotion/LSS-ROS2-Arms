@@ -1,5 +1,5 @@
 #!/usr/bin/env -S ros2 launch
-"""Visualisation of SDF model for LSS 4DoF/5DoF Arm in Ignition Gazebo. Note that the generated model://lss_arm/model.sdf descriptor is required."""
+"""Visualisation of SDF model for LSS 4DoF/5DoF Arm in Gazebo. Note that the generated model://lss_arm/model.sdf descriptor is required."""
 
 from os import path
 from typing import List
@@ -30,7 +30,7 @@ def generate_launch_description() -> LaunchDescription:
     world = LaunchConfiguration("world")
     dof = LaunchConfiguration("dof")
     use_sim_time = LaunchConfiguration("use_sim_time")
-    ign_verbosity = LaunchConfiguration("ign_verbosity")
+    gz_verbosity = LaunchConfiguration("gz_verbosity")
     log_level = LaunchConfiguration("log_level")
 
     model = PythonExpression(["'lss_arm_", dof, "dof'"])
@@ -52,18 +52,18 @@ def generate_launch_description() -> LaunchDescription:
 
     # List of included launch descriptions
     launch_descriptions = [
-        # Launch Ignition Gazebo
+        # Launch Gazebo
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 PathJoinSubstitution(
                     [
-                        FindPackageShare("ros_ign_gazebo"),
+                        FindPackageShare("ros_gz_gazebo"),
                         "launch",
-                        "ign_gazebo.launch.py",
+                        "gz_gazebo.launch.py",
                     ]
                 )
             ),
-            launch_arguments=[("ign_args", [world, " -v ", ign_verbosity])],
+            launch_arguments=[("gz_args", [world, " -v ", gz_verbosity])],
         ),
     ]
 
@@ -84,9 +84,9 @@ def generate_launch_description() -> LaunchDescription:
                 },
             ],
         ),
-        # ros_ign_gazebo_create
+        # ros_gz_gazebo_create
         Node(
-            package="ros_ign_gazebo",
+            package="ros_gz_gazebo",
             executable="create",
             output="log",
             arguments=["-file", model, "--ros-args", "--log-level", log_level],
@@ -114,7 +114,7 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
             default_value=path.join("urdf", "lss_arm.urdf.xacro"),
             description="Path to xacro or URDF description of the robot, relative to share of `description_package`.",
         ),
-        # World and model for Ignition Gazebo
+        # World and model for  Gazebo
         DeclareLaunchArgument(
             "world",
             default_value="default.sdf",
@@ -134,9 +134,9 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
             description="If true, use simulated clock.",
         ),
         DeclareLaunchArgument(
-            "ign_verbosity",
+            "gz_verbosity",
             default_value="0",
-            description="Verbosity level for Ignition Gazebo (0~4).",
+            description="Verbosity level for Gazebo (0~4).",
         ),
         DeclareLaunchArgument(
             "log_level",

@@ -1,4 +1,4 @@
-/// Example that uses MoveIt 2 to follow a target inside Ignition Gazebo
+/// Example that uses MoveIt 2 to follow a target inside Gazebo
 /// Because the Arms only have 4/5 DOF the goal orientation is adjusted so it
 /// is always parallel to the base of the robot
 

@@ -1,8 +1,10 @@
 #!/usr/bin/env -S ros2 launch
-"""Launch default.sdf and the required ROS<->IGN bridges"""
+"""Launch worlds/follow_target.sdf and the required ROS<->IGN bridges"""
 
+from os import path
 from typing import List
 
+from ament_index_python.packages import get_package_share_directory
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
@@ -20,31 +22,31 @@ def generate_launch_description() -> LaunchDescription:
     # Get substitution for all arguments
     world = LaunchConfiguration("world")
     use_sim_time = LaunchConfiguration("use_sim_time")
-    ign_verbosity = LaunchConfiguration("ign_verbosity")
+    gz_verbosity = LaunchConfiguration("gz_verbosity")
     log_level = LaunchConfiguration("log_level")
 
     # List of included launch descriptions
     launch_descriptions = [
-        # Launch Ignition Gazebo
+        # Launch Gazebo
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 PathJoinSubstitution(
                     [
-                        FindPackageShare("ros_ign_gazebo"),
+                        FindPackageShare("ros_gz_sim"),
                         "launch",
-                        "ign_gazebo.launch.py",
+                        "gz_sim.launch.py",
                     ]
                 )
             ),
-            launch_arguments=[("ign_args", [world, " -r -v ", ign_verbosity])],
+            launch_arguments=[("gz_args", [world, " -r -v ", gz_verbosity])],
         ),
     ]
 
     # List of nodes to be launched
     nodes = [
-        # ros_ign_bridge (clock -> ROS 2)
+        # ros_gz_bridge (clock -> ROS 2)
         Node(
-            package="ros_ign_bridge",
+            package="ros_gz_bridge",
             executable="parameter_bridge",
             output="log",
             arguments=[
@@ -54,6 +56,22 @@ def generate_launch_description() -> LaunchDescription:
                 log_level,
             ],
             parameters=[{"use_sim_time": use_sim_time}],
+        ),
+        # ros_gz_bridge (target pose -> ROS 2)
+        Node(
+            package="ros_gz_bridge",
+            executable="parameter_bridge",
+            output="log",
+            arguments=[
+                "/model/target/pose"
+                + "@"
+                + "geometry_msgs/msg/PoseStamped[ignition.msgs.Pose",
+                "--ros-args",
+                "--log-level",
+                log_level,
+            ],
+            parameters=[{"use_sim_time": use_sim_time}],
+            remappings=[("/model/target/pose", "/target_pose")],
         ),
     ]
 
@@ -66,10 +84,14 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
     """
 
     return [
-        # World for Ignition Gazebo
+        # World for Gazebo
         DeclareLaunchArgument(
             "world",
-            default_value="default.sdf",
+            default_value=path.join(
+                get_package_share_directory("lss_gz_moveit_example"),
+                "worlds",
+                "follow_target.sdf",
+            ),
             description="Name or filepath of world to load.",
         ),
         # Miscellaneous
@@ -79,9 +101,9 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
             description="If true, use simulated clock.",
         ),
         DeclareLaunchArgument(
-            "ign_verbosity",
+            "gz_verbosity",
             default_value="2",
-            description="Verbosity level for Ignition Gazebo (0~4).",
+            description="Verbosity level for Gazebo (0~4).",
         ),
         DeclareLaunchArgument(
             "log_level",

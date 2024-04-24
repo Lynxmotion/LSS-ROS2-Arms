@@ -8,24 +8,23 @@ The LSS-ROS2-Arms repository contains common packages that are used by both the 
 - [Package installation](#package-installation)
 - [Description package](#description-package)
 - [MoveIt2 package](#moveit2-package)
-- [Follow goal example](#lss-ignition-moveit-example)
+- [Follow goal example](#lss-gz-moveit-example)
 - [Author](#author)
 - [Resources](#resources)
 
 ## Prerequisites
 
 1. [Ubuntu 20.04.6 (Focal Fossa)](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview)
-2. [ROS2 Galactic (Desktop)](https://docs.ros.org/en/galactic/Installation.html)
+2. [ROS2 Iron (Desktop)](https://docs.ros.org/en/iron/Installation.html)
 3. ROS2 dev tools:
 
 ```
 sudo pip install colcon-common-extensions
 sudo pip install vcstool
-sudo apt install ros-galactic-backward-ros
 sudo apt install python3-rosdep2
 rosdep update --include-eol-distros
 ```
-4. [Ignition Gazebo Edifice](https://gazebosim.org/docs/edifice/install)
+4. [Gazebo Edifice](https://gazebosim.org/docs/edifice/install)
 5. [Catch2](https://www.cyberithub.com/how-to-install-catch2-on-ubuntu-20-04-lts-focal-fossa/)
 
 ## Package installation
@@ -41,7 +40,7 @@ mv src LSS-ROS2-Arms
 
 ```
 cd LSS-ROS2-Arms
-rosdep install --from-path src -yi --rosdistro galactic
+rosdep install --from-path src -yi --rosdistro iron
 cd src
 vcs import < required.repos
 cd ..
@@ -50,7 +49,7 @@ cd ..
 ### Build instructions
 
 ```
-source /opt/ros/galactic/setup.bash
+source /opt/ros/iron/setup.bash
 export IGNITION_VERSION=edifice
 colcon build --symlink-install
 ```
@@ -117,20 +116,20 @@ ros2 launch lss_arm_description view.launch.py dof:=4
   <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/description_5dof.gif" width="600px"/>
 </p>
 
-**View in Ignition Gazebo**
+**View in Gazebo**
 
 ```
-ros2 launch lss_arm_description view_ign.launch.py dof:=5
+ros2 launch lss_arm_description view_gz.launch.py dof:=5
 ```
 <p align="center">
-  <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/sim_ign_5dof.png" width="450px"/>
+  <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/sim_gz_5dof.png" width="450px"/>
 </p>
 
 ### MoveIt2 package
 
 The lss_arm_moveit package contains all the configuration and launch files for using the LSS Arm with the MoveIt2 Motion Planning Framework.
 
-It offers different controller plugins for the manipulator ('fake', 'ign' and 'real')
+It offers different controller plugins for the manipulator ('fake', 'gz' and 'real')
 
 If you want to generate the [SRDF](https://docs.ros.org/en/kinetic/api/moveit_tutorials/html/doc/urdf_srdf/urdf_srdf_tutorial.html#srdf) files (not required) you can run:
 ```
@@ -165,22 +164,22 @@ ros2 launch lss_arm_moveit fake_arm_control.launch.py dof:=4
   </table>
 </p>
 
-**Simulated controller (Rviz Interface + Ignition Gazebo Simulation)**
+**Simulated controller (Rviz Interface + Gazebo Simulation)**
 
 Unlike the "fake controller" the "simulated controller" integrates the robot controllers with Gazebo, allowing a realistic simulation of the robot's motion. This is useful for testing and validating the robot’s behavior in a simulated environment before deploying it in the real world.
 
 ```
-ros2 launch lss_arm_moveit ign_arm_control.launch.py dof:=4
+ros2 launch lss_arm_moveit gz_arm_control.launch.py dof:=4
 ```
 <p align="center">
-  <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/moveit_ign_4dof.png" width="650px"/>
+  <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/moveit_gz_4dof.png" width="650px"/>
 </p>
 
 ```
-ros2 launch lss_arm_moveit ign_arm_control.launch.py dof:=5
+ros2 launch lss_arm_moveit gz_arm_control.launch.py dof:=5
 ```
 <p align="center">
-  <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/ign_obstacle_5dof.gif" width="600px"/>
+  <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/gz_obstacle_5dof.gif" width="600px"/>
   <br>Obstacle avoidance example
 </p>
 
@@ -241,14 +240,14 @@ ros2 topic pub --once /effort_controller/commands std_msgs/msg/Float64MultiArray
 ```
 * Note: For the 5DoF version add an extra - 0
 
-### LSS Ignition MoveIt Example
+### LSS MoveIt Example
 
-The lss_ign_moveit_example package launches a simulation of the 4DoF LSS Arm in Gazebo Ignition where you can interact with a box in the virtual environment. This example includes a C++ implementation that makes the arm track the target (box) whenever you change its location.
+The lss_gz_moveit_example package launches a simulation of the 4DoF LSS Arm in Gazebo where you can interact with a box in the virtual environment. This example includes a C++ implementation that makes the arm track the target (box) whenever you change its location.
 
 **Follow Goal Demo (Simulation)**
 
 ```
-ros2 launch lss_ign_moveit_example ex_cpp_follow_target.launch.py
+ros2 launch lss_gz_moveit_example ex_cpp_follow_target.launch.py
 ```
 <p align="center">
   <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/follow_goal_4dof.gif" width="600px"/>

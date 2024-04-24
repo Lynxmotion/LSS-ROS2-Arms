@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(lss_ign_moveit_example)
+project(lss_gz_moveit_example)
 
 # Default to C11
 if(NOT CMAKE_C_STANDARD)

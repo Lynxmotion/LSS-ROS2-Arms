@@ -26,8 +26,8 @@
         <xacro:if value="${plugin == 'fake'}">
           <plugin>fake_components/GenericSystem</plugin>
         </xacro:if>
-        <xacro:if value="${plugin == 'ign'}">
-          <plugin>ign_ros2_control/IgnitionSystem</plugin>
+        <xacro:if value="${plugin == 'gz'}">
+          <plugin>gz_ros2_control/GazeboSimSystem</plugin>
         </xacro:if>
         <xacro:if value="${plugin == 'real'}">
           <plugin>lynxmotion/LssBus</plugin>
@@ -35,7 +35,7 @@
           <param name="baudrate">921600</param>
           <param name="prefix">lss_arm_joint_</param>
         </xacro:if>
-        <xacro:unless value="${plugin == 'fake' or plugin == 'ign' or plugin == 'real'}">
+        <xacro:unless value="${plugin == 'fake' or plugin == 'gz' or plugin == 'real'}">
           <plugin>${plugin}</plugin>
         </xacro:unless>
       </hardware>

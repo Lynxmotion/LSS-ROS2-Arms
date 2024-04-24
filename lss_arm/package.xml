@@ -11,7 +11,7 @@
 
   <build_depend>lss_arm_description</build_depend>
   <build_depend>lss_arm_moveit</build_depend>
-  <build_depend>lss_ign_moveit_example</build_depend>
+  <build_depend>lss_gz_moveit_example</build_depend>
   <build_depend>xacro</build_depend>
 
   <export>
