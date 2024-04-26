@@ -24,7 +24,7 @@ sudo pip install vcstool
 sudo apt install python3-rosdep2
 rosdep update
 ```
-4. [Gazebo Fortress](https://gazebosim.org/docs/fortress/install)
+4. [Ignition Fortress](https://gazebosim.org/docs/fortress/install)
 
 ## Package installation
 
