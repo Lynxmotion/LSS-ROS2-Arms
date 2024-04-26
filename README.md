@@ -8,7 +8,7 @@ The LSS-ROS2-Arms repository contains common packages that are used by both the 
 - [Package installation](#package-installation)
 - [Description package](#description-package)
 - [MoveIt2 package](#moveit2-package)
-- [Follow goal example](#lss-gz-moveit-example)
+- [Follow goal example](#lss-sim-moveit-example)
 - [Author](#author)
 - [Resources](#resources)
 
@@ -243,12 +243,12 @@ ros2 topic pub --once /effort_controller/commands std_msgs/msg/Float64MultiArray
 
 ### LSS MoveIt Example
 
-The lss_gz_moveit_example package launches a simulation of the 4DoF LSS Arm in Gazebo where you can interact with a box in the virtual environment. This example includes a C++ implementation that makes the arm track the target (box) whenever you change its location.
+The lss_sim_moveit_example package launches a simulation of the 4DoF LSS Arm in Gazebo where you can interact with a box in the virtual environment. This example includes a C++ implementation that makes the arm track the target (box) whenever you change its location.
 
 **Follow Goal Demo (Simulation)**
 
 ```
-ros2 launch lss_gz_moveit_example ex_cpp_follow_target.launch.py
+ros2 launch lss_sim_moveit_example ex_cpp_follow_target.launch.py
 ```
 <p align="center">
   <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/follow_goal_4dof.gif" width="600px"/>
