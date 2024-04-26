@@ -22,10 +22,9 @@ The LSS-ROS2-Arms repository contains common packages that are used by both the 
 sudo pip install colcon-common-extensions
 sudo pip install vcstool
 sudo apt install python3-rosdep2
-rosdep update --include-eol-distros
+rosdep update
 ```
 4. [Gazebo Fortress](https://gazebosim.org/docs/fortress/install)
-5. [Catch2](https://www.cyberithub.com/how-to-install-catch2-on-ubuntu-20-04-lts-focal-fossa/)
 
 ## Package installation
 
