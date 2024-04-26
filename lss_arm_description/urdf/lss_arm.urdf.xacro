@@ -38,8 +38,8 @@
 
   <!-- Flag to enable ros2 controllers for manipulator -->
   <xacro:arg name="ros2_control" default="true"/>
-  <!-- The ros2_control plugin that should be loaded for the manipulator ('fake', 'gz', 'real' or custom) -->
-  <xacro:arg name="ros2_control_plugin" default="gz"/>
+  <!-- The ros2_control plugin that should be loaded for the manipulator ('fake', 'sim', 'real' or custom) -->
+  <xacro:arg name="ros2_control_plugin" default="sim"/>
   <!-- The filepath to parameters of ROS 2 controllers -->
   <xacro:arg name="ros2_controller_parameters" default="$(find lss_arm_moveit)/config/controllers_$(arg dof)dof.yaml"/>
 
@@ -133,7 +133,7 @@
 
   <!-- Gazebo - ROS 2 control -->
   <xacro:if value="$(arg ros2_control)">
-    <xacro:if value="${'gz' in '$(arg ros2_control_plugin)'}">
+    <xacro:if value="${'sim' in '$(arg ros2_control_plugin)'}">
       <xacro:gz_ros2_control controller_parameters="$(arg ros2_controller_parameters)"/>
     </xacro:if>
   </xacro:if>

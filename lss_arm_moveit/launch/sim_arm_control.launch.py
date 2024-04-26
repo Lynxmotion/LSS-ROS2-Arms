@@ -35,11 +35,11 @@ def generate_launch_description() -> LaunchDescription:
                     [
                         FindPackageShare("ros_ign_gazebo"),
                         "launch",
-                        "gz_sim.launch.py",
+                        "ign_gazebo.launch.py",
                     ]
                 )
             ),
-            launch_arguments=[("gz_args", [world, " -r -v ", gz_verbosity])],
+            launch_arguments=[("ign_args", [world, " -r -v ", gz_verbosity])],
         ),
         # Launch move_group of MoveIt 2
         IncludeLaunchDescription(
@@ -54,7 +54,7 @@ def generate_launch_description() -> LaunchDescription:
             ),
             launch_arguments=[
                 ("dof", dof),
-                ("ros2_control_plugin", "gz"),
+                ("ros2_control_plugin", "sim"),
                 ("collision", "true"),
                 ("rviz_config", rviz_config),
                 ("use_sim_time", use_sim_time),

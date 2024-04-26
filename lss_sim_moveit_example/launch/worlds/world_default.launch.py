@@ -1,10 +1,8 @@
 #!/usr/bin/env -S ros2 launch
-"""Launch worlds/follow_target.sdf and the required ROS<->GZ bridges"""
+"""Launch default.sdf and the required ROS<->GZ bridges"""
 
-from os import path
 from typing import List
 
-from ament_index_python.packages import get_package_share_directory
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
@@ -34,11 +32,11 @@ def generate_launch_description() -> LaunchDescription:
                     [
                         FindPackageShare("ros_ign_gazebo"),
                         "launch",
-                        "gz_sim.launch.py",
+                        "ign_gazebo.launch.py",
                     ]
                 )
             ),
-            launch_arguments=[("gz_args", [world, " -r -v ", gz_verbosity])],
+            launch_arguments=[("ign_args", [world, " -r -v ", gz_verbosity])],
         ),
     ]
 
@@ -57,22 +55,6 @@ def generate_launch_description() -> LaunchDescription:
             ],
             parameters=[{"use_sim_time": use_sim_time}],
         ),
-        # ros_gz_bridge (target pose -> ROS 2)
-        Node(
-            package="ros_gz_bridge",
-            executable="parameter_bridge",
-            output="log",
-            arguments=[
-                "/model/target/pose"
-                + "@"
-                + "geometry_msgs/msg/PoseStamped[ignition.msgs.Pose",
-                "--ros-args",
-                "--log-level",
-                log_level,
-            ],
-            parameters=[{"use_sim_time": use_sim_time}],
-            remappings=[("/model/target/pose", "/target_pose")],
-        ),
     ]
 
     return LaunchDescription(declared_arguments + launch_descriptions + nodes)
@@ -87,11 +69,7 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
         # World for Gazebo
         DeclareLaunchArgument(
             "world",
-            default_value=path.join(
-                get_package_share_directory("lss_gz_moveit_example"),
-                "worlds",
-                "follow_target.sdf",
-            ),
+            default_value="default.sdf",
             description="Name or filepath of world to load.",
         ),
         # Miscellaneous

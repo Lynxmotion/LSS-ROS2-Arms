@@ -120,17 +120,17 @@ ros2 launch lss_arm_description view.launch.py dof:=4
 **View in Gazebo**
 
 ```
-ros2 launch lss_arm_description view_gz.launch.py dof:=5
+ros2 launch lss_arm_description view_sim.launch.py dof:=5
 ```
 <p align="center">
-  <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/sim_gz_5dof.png" width="450px"/>
+  <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/sim_ign_5dof.png" width="450px"/>
 </p>
 
 ### MoveIt2 package
 
 The lss_arm_moveit package contains all the configuration and launch files for using the LSS Arm with the MoveIt2 Motion Planning Framework.
 
-It offers different controller plugins for the manipulator ('fake', 'gz' and 'real')
+It offers different controller plugins for the manipulator ('fake', 'sim' and 'real')
 
 If you want to generate the [SRDF](https://docs.ros.org/en/kinetic/api/moveit_tutorials/html/doc/urdf_srdf/urdf_srdf_tutorial.html#srdf) files (not required) you can run:
 ```
@@ -170,17 +170,17 @@ ros2 launch lss_arm_moveit fake_arm_control.launch.py dof:=4
 Unlike the "fake controller" the "simulated controller" integrates the robot controllers with Gazebo, allowing a realistic simulation of the robot's motion. This is useful for testing and validating the robot’s behavior in a simulated environment before deploying it in the real world.
 
 ```
-ros2 launch lss_arm_moveit gz_arm_control.launch.py dof:=4
+ros2 launch lss_arm_moveit sim_arm_control.launch.py dof:=4
 ```
 <p align="center">
-  <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/moveit_gz_4dof.png" width="650px"/>
+  <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/moveit_ign_4dof.png" width="650px"/>
 </p>
 
 ```
-ros2 launch lss_arm_moveit gz_arm_control.launch.py dof:=5
+ros2 launch lss_arm_moveit sim_arm_control.launch.py dof:=5
 ```
 <p align="center">
-  <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/gz_obstacle_5dof.gif" width="600px"/>
+  <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/ign_obstacle_5dof.gif" width="600px"/>
   <br>Obstacle avoidance example
 </p>
 

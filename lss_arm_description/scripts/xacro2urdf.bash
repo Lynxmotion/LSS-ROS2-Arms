@@ -28,7 +28,7 @@ XACRO_ARGS=(
     dof:="${DOF}"
     collision:=true
     ros2_control:=true
-    ros2_control_plugin:=gz
+    ros2_control_plugin:=sim
     gazebo_preserve_fixed_joint:=false
 )
 

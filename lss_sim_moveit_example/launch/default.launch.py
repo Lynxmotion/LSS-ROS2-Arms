@@ -49,7 +49,7 @@ def generate_launch_description() -> LaunchDescription:
             PythonLaunchDescriptionSource(
                 PathJoinSubstitution(
                     [
-                        FindPackageShare("lss_gz_moveit_example"),
+                        FindPackageShare("lss_sim_moveit_example"),
                         "launch",
                         "worlds",
                         LaunchConfiguration("__world_launch_basename"),
@@ -67,7 +67,7 @@ def generate_launch_description() -> LaunchDescription:
             PythonLaunchDescriptionSource(
                 PathJoinSubstitution(
                     [
-                        FindPackageShare("lss_gz_moveit_example"),
+                        FindPackageShare("lss_sim_moveit_example"),
                         "launch",
                         "robots",
                         LaunchConfiguration("__robot_launch_basename"),
@@ -94,7 +94,7 @@ def generate_launch_description() -> LaunchDescription:
             ),
             launch_arguments=[
                 ("dof", dof),
-                ("ros2_control_plugin", "gz"),
+                ("ros2_control_plugin", "sim"),
                 ("collision", "true"),
                 ("rviz_config", rviz_config),
                 ("use_sim_time", use_sim_time),
@@ -155,9 +155,9 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
         DeclareLaunchArgument(
             "rviz_config",
             default_value=path.join(
-                get_package_share_directory("lss_gz_moveit_example"),
+                get_package_share_directory("lss_sim_moveit_example"),
                 "rviz",
-                "lss_gz_moveit.rviz",
+                "lss_sim_moveit.rviz",
             ),
             description="Path to configuration for RViz2.",
         ),

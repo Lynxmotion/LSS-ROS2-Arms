@@ -1,12 +1,8 @@
 #!/usr/bin/env -S ros2 launch
-"""Launch C++ example for following a target"""
+"""Visualisation of SDF model for LSS 4DoF/5DoF Arm in Gazebo. Note that the generated model://lss_arm/model.sdf descriptor is required."""
 
 from os import path
 from typing import List
-
-from ament_index_python.packages import get_package_share_directory
-from launch_ros.actions import Node
-from launch_ros.substitutions import FindPackageShare
 
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
@@ -15,8 +11,13 @@ from launch.substitutions import (
     Command,
     FindExecutable,
     LaunchConfiguration,
-    PathJoinSubstitution
+    PathJoinSubstitution,
+    PythonExpression
 )
+from launch_ros.actions import Node
+from launch_ros.substitutions import FindPackageShare
+from ament_index_python.packages import get_package_share_directory
+
 
 def generate_launch_description() -> LaunchDescription:
 
@@ -26,13 +27,13 @@ def generate_launch_description() -> LaunchDescription:
     # Get substitution for all arguments
     description_package = LaunchConfiguration("description_package")
     description_filepath = LaunchConfiguration("description_filepath")
-    moveit_config_package = "lss_arm_moveit"
-    name = LaunchConfiguration("name")
+    world = LaunchConfiguration("world")
     dof = LaunchConfiguration("dof")
-    rviz_config = LaunchConfiguration("rviz_config")
     use_sim_time = LaunchConfiguration("use_sim_time")
     gz_verbosity = LaunchConfiguration("gz_verbosity")
     log_level = LaunchConfiguration("log_level")
+
+    model = PythonExpression(["'lss_arm_", dof, "dof'"])
 
     # URDF
     _robot_description_xml = Command(
@@ -44,79 +45,57 @@ def generate_launch_description() -> LaunchDescription:
             ),
             " ",
             "name:=",
-            name,
-            " ",
-            "dof:=",
-            dof,
+            model,
         ]
     )
     robot_description = {"robot_description": _robot_description_xml}
 
-    # SRDF
-    _robot_description_semantic_xml = Command(
-        [
-            PathJoinSubstitution([FindExecutable(name="xacro")]),
-            " ",
-            PathJoinSubstitution(
-                [
-                    FindPackageShare(moveit_config_package),
-                    "srdf",
-                    "lss_arm.srdf.xacro",
-                ]
-            ),
-            " ",
-            "name:=",
-            name,
-            " ",
-            "dof:=",
-            dof,
-        ]
-    )
-    robot_description_semantic = {
-        "robot_description_semantic": _robot_description_semantic_xml
-    }
-
     # List of included launch descriptions
     launch_descriptions = [
-        # Launch world with robot (configured for this example)
+        # Launch Gazebo
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 PathJoinSubstitution(
                     [
-                        FindPackageShare("lss_gz_moveit_example"),
+                        FindPackageShare("ros_ign_gazebo"),
                         "launch",
-                        "default.launch.py",
+                        "ign_gazebo.launch.py",
                     ]
                 )
             ),
-            launch_arguments=[
-                ("dof", dof),
-                ("world_type", "follow_target"),
-                ("rviz_config", rviz_config),
-                ("use_sim_time", use_sim_time),
-                ("gz_verbosity", gz_verbosity),
-                ("log_level", log_level),
-            ],
+            launch_arguments=[("ign_args", [world, " -v ", gz_verbosity])],
         ),
     ]
 
     # List of nodes to be launched
     nodes = [
-        # Run the example node (C++)
+        # robot_state_publisher
         Node(
-            package="lss_gz_moveit_example",
-            executable="ex_follow_target",
+            package="robot_state_publisher",
+            executable="robot_state_publisher",
             output="log",
             arguments=["--ros-args", "--log-level", log_level],
             parameters=[
                 robot_description,
-                robot_description_semantic,
-                {"use_sim_time": use_sim_time},
+                {
+                    "publish_frequency": 30.0,
+                    "frame_prefix": "",
+                    "use_sim_time": use_sim_time,
+                },
             ],
+        ),
+        # ros_ign_gazebo_create
+        Node(
+            package="ros_ign_gazebo",
+            executable="create",
+            output="log",
+            arguments=["-file", model, "--ros-args", "--log-level", log_level],
+            parameters=[{"use_sim_time": use_sim_time}],
         ),
     ]
 
     return LaunchDescription(declared_arguments + launch_descriptions + nodes)
+
 
 def generate_declared_arguments() -> List[DeclareLaunchArgument]:
     """
@@ -135,11 +114,11 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
             default_value=path.join("urdf", "lss_arm.urdf.xacro"),
             description="Path to xacro or URDF description of the robot, relative to share of `description_package`.",
         ),
-        # Naming of the robot
+        # World and model for  Gazebo
         DeclareLaunchArgument(
-            "name",
-            default_value="lss_arm",
-            description="Name of the robot.",
+            "world",
+            default_value="default.sdf",
+            description="Name or filepath of world to load.",
         ),
         # Gripper
         DeclareLaunchArgument(
@@ -150,22 +129,13 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
         ),
         # Miscellaneous
         DeclareLaunchArgument(
-            "rviz_config",
-            default_value=path.join(
-                get_package_share_directory("lss_gz_moveit_example"),
-                "rviz",
-                "lss_gz_moveit.rviz",
-            ),
-            description="Path to configuration for RViz2.",
-        ),
-        DeclareLaunchArgument(
             "use_sim_time",
             default_value="true",
             description="If true, use simulated clock.",
         ),
         DeclareLaunchArgument(
             "gz_verbosity",
-            default_value="2",
+            default_value="0",
             description="Verbosity level for Gazebo (0~4).",
         ),
         DeclareLaunchArgument(
