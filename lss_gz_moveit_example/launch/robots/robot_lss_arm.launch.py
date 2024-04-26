@@ -25,7 +25,7 @@ def generate_launch_description() -> LaunchDescription:
     # List of nodes to be launched
     nodes = [
         Node(
-            package="ros_gz_sim",
+            package="ros_ign_gazebo",
             executable="create",
             output="log",
             arguments=["-file", model, "--ros-args", "--log-level", log_level],

@@ -44,7 +44,7 @@ def generate_launch_description() -> LaunchDescription:
 
     # List of included launch descriptions
     launch_descriptions = [
-        # Launch Gazebo with the required ROS<->IGN bridges
+        # Launch Gazebo with the required ROS<->GZ bridges
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 PathJoinSubstitution(

@@ -17,7 +17,7 @@
   <exec_depend>moveit</exec_depend>
   <exec_depend>rclpy</exec_depend>
   <exec_depend>ros_gz_bridge</exec_depend>
-  <exec_depend>ros_gz_gazebo</exec_depend>
+  <exec_depend>ros_ign_gazebo</exec_depend>
   <exec_depend>rviz2</exec_depend>
 
   <exec_depend>lss_arm_description</exec_depend>

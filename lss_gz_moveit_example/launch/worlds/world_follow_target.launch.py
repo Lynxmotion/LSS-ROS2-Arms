@@ -1,5 +1,5 @@
 #!/usr/bin/env -S ros2 launch
-"""Launch worlds/follow_target.sdf and the required ROS<->IGN bridges"""
+"""Launch worlds/follow_target.sdf and the required ROS<->GZ bridges"""
 
 from os import path
 from typing import List
@@ -32,7 +32,7 @@ def generate_launch_description() -> LaunchDescription:
             PythonLaunchDescriptionSource(
                 PathJoinSubstitution(
                     [
-                        FindPackageShare("ros_gz_sim"),
+                        FindPackageShare("ros_ign_gazebo"),
                         "launch",
                         "gz_sim.launch.py",
                     ]

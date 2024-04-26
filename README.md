@@ -24,13 +24,14 @@ sudo pip install vcstool
 sudo apt install python3-rosdep2
 rosdep update --include-eol-distros
 ```
-4. [Gazebo Edifice](https://gazebosim.org/docs/edifice/install)
+4. [Gazebo Fortress](https://gazebosim.org/docs/fortress/install)
 5. [Catch2](https://www.cyberithub.com/how-to-install-catch2-on-ubuntu-20-04-lts-focal-fossa/)
 
 ## Package installation
 
 ```
 git clone https://github.com/Lynxmotion/LSS-ROS2-Arms.git
+git checkout iron
 mkdir -p src
 mv LSS-ROS2-Arms/* src
 mv src LSS-ROS2-Arms
@@ -50,7 +51,7 @@ cd ..
 
 ```
 source /opt/ros/iron/setup.bash
-export IGNITION_VERSION=edifice
+export GZ_VERSION=fortress
 colcon build --symlink-install
 ```
 
