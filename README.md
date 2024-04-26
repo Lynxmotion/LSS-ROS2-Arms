@@ -241,7 +241,7 @@ ros2 topic pub --once /effort_controller/commands std_msgs/msg/Float64MultiArray
 ```
 * Note: For the 5DoF version add an extra - 0
 
-### LSS MoveIt Example
+### LSS Sim MoveIt Example
 
 The lss_sim_moveit_example package launches a simulation of the 4DoF LSS Arm in Gazebo where you can interact with a box in the virtual environment. This example includes a C++ implementation that makes the arm track the target (box) whenever you change its location.
 
