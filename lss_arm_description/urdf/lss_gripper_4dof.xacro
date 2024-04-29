@@ -132,6 +132,8 @@
     mesh_offset_rpy="${link_finger_1_mesh_offset}"
     />
 
+<!-- mimic_joint="${prefix}${joint_finger_1_name}" -->
+
     <!-- Finger 2 -->
     <xacro:lss_arm_joint_
     parent="${prefix}${link_4_name}"
@@ -147,7 +149,7 @@
     joint_torque_limit="${joint_finger_2_torque_limit}"
     joint_damping="${joint_finger_2_damping}"
     joint_friction="${joint_finger_2_friction}"
-    mimic_joint="${prefix}${joint_finger_1_name}"
+    mimic_joint="none"
     multiplier="-1.0"
     offset="0.0"
     gazebo_preserve_fixed_joint="${gazebo_preserve_fixed_joint}"
