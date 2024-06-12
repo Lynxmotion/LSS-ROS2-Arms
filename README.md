@@ -22,7 +22,6 @@ The LSS-ROS2-Arms repository contains common packages that are used by both the 
 sudo pip install colcon-common-extensions
 sudo pip install vcstool
 sudo apt install ros-galactic-backward-ros
-sudo apt install python3-rosdep2
 rosdep update --include-eol-distros
 ```
 4. [Ignition Edifice](https://gazebosim.org/docs/edifice/install)
@@ -30,20 +29,16 @@ rosdep update --include-eol-distros
 ## Package installation
 
 ```
+cd your-ros-workspace/src
 git clone https://github.com/Lynxmotion/LSS-ROS2-Arms.git
-mkdir -p src
-mv LSS-ROS2-Arms/* src
-mv src LSS-ROS2-Arms
 ```
 
 ### Install dependencies
 
 ```
 cd LSS-ROS2-Arms
-rosdep install --from-path src -yi --rosdistro galactic
-cd src
+rosdep install --from-path . -yi --rosdistro galactic
 vcs import < required.repos
-cd ..
 ```
 
 ### Build instructions
@@ -51,6 +46,7 @@ cd ..
 ```
 source /opt/ros/galactic/setup.bash
 export IGNITION_VERSION=edifice
+cd your-ros-workspace
 colcon build --symlink-install
 ```
 
@@ -197,7 +193,9 @@ Before controlling the real robot first follow these steps:
 
 To control the arm:
 
-1. Run the launch file
+1. Add `LSS-ROS2-Control` to your colcon worspace: `git clone https://github.com/Lynxmotion/LSS-ROS2-Control` and recompile the workspace
+
+2. Run the launch file
 
 ```
 ros2 launch lss_arm_moveit real_arm_control.launch.py dof:=4
@@ -212,7 +210,7 @@ ros2 launch lss_arm_moveit real_arm_control.launch.py dof:=4
 sudo chmod 766 /dev/ttyUSB0
 ```
 
-2. To activate the servos open another terminal and run:
+3. To activate the servos open another terminal and run:
 ```
 ros2 topic pub --once /effort_controller/commands std_msgs/msg/Float64MultiArray "data:
 - 6.8
@@ -223,7 +221,7 @@ ros2 topic pub --once /effort_controller/commands std_msgs/msg/Float64MultiArray
 ```
 * Note: For the 5DoF version add an extra - 6.8
 
-3. Now you are able to plan the trajectories using MoveIt2 and execute them with real hardware
+4. Now you are able to plan the trajectories using MoveIt2 and execute them with real hardware
 
 <p align="center">
   <img src="https://github.com/geraldinebc/tb4_lss_tests/blob/main/images/5dof_real_control.gif" width="600px"/>
