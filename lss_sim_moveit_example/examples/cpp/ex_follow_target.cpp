@@ -54,10 +54,10 @@ void MoveItFollowTarget::target_pose_callback(const geometry_msgs::msg::PoseStam
 
   // Plan and execute motion towards target pose
   this->move_group_.setPoseTarget(msg->pose);
-  moveit::planning_interface::MoveItErrorCode success = this->move_group_.move();
+  moveit::core::MoveItErrorCode success = this->move_group_.move();
 
   // If unable to move to target pose, try pose_position_only.pose
-  if (success != moveit::planning_interface::MoveItErrorCode::SUCCESS) {
+  if (success != moveit::core::MoveItErrorCode::SUCCESS) {
     // Calculate the yaw angle based on the target position and the base
     double yaw = atan2(msg->pose.position.y, msg->pose.position.x);
 
