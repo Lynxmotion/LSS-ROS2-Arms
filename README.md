@@ -253,7 +253,7 @@ ros2 launch lss_ign_moveit_example ex_cpp_follow_target.launch.py
   <img src="https://github.com/Lynxmotion/LSS-ROS2-Arms/blob/master/images/follow_goal_4dof.gif" width="600px"/>
 </p>
 
-* Note: The arm only has 4 DoF so it is not always possible to reach the desired position + orientation goal. This implementation adjusts the goal orientation so it is always parallel to the base of the robot, this allows it to plan a trajectory "ignoring" the orientation.
+* Note: The arm only has 4/5 DoF so it is not always possible to reach the desired pose (position + orientation) goal. This implementation uses a position only target when the pose is not reachable.
 
 ## Author
 

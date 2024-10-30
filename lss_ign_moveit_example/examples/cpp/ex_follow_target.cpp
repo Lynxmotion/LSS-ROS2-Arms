@@ -56,22 +56,9 @@ void MoveItFollowTarget::target_pose_callback(const geometry_msgs::msg::PoseStam
   this->move_group_.setPoseTarget(msg->pose);
   moveit::planning_interface::MoveItErrorCode success = this->move_group_.move();
 
-  // If unable to move to target pose, try pose_position_only.pose
+  // If unable to move to target pose, try position only target
   if (success != moveit::planning_interface::MoveItErrorCode::SUCCESS) {
-    // Calculate the yaw angle based on the target position and the base
-    double yaw = atan2(msg->pose.position.y, msg->pose.position.x);
-
-    // Create a quaternion from the Euler angles
-    tf2::Quaternion q;
-    q.setRPY(1.57, 0.0, yaw); // roll, pitch, yaw
-
-    // Copy the desired pose (goal position w/o orientation)
-    geometry_msgs::msg::PoseStamped pose_position_only = *msg;
-
-    // Set default orientation (always parallel to the base)
-    pose_position_only.pose.orientation = tf2::toMsg(q);
-  
-    this->move_group_.setPoseTarget(pose_position_only.pose);
+    this->move_group_.setPositionTarget(msg->pose.position.x, msg->pose.position.x,  msg->pose.position.z, "lss_arm_ee");
     this->move_group_.move();
   }
 
